@@ -26,7 +26,6 @@ import altair as alt
 np.random.seed(42)
 data = pd.DataFrame(np.random.rand(100), columns=['Random Numbers'])
 
-
 def describe(df):
     # First object: header material
     first_object = "Preview of the DataFrame and Histogram:"
@@ -44,12 +43,9 @@ def describe(df):
         height=400
     )
 
-   
     return [first_object, second_object, str(histogram)]
-
 
 result = describe(data)
 print(result[0])
 print(result[1])
 print(result[2])
-```
