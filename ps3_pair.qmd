@@ -1,6 +1,6 @@
 ---
 title: "30538 Problem Set 3: git pair"
-author: "Clarice"
+author: "Clarice & Eddie"
 format: 
   pdf:
     keep-tex: true
