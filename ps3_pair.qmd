@@ -25,8 +25,13 @@ import numpy as np
 np.random.seed(42)
 data = pd.DataFrame(np.random.rand(100), columns=['Random Numbers'])
 
-def preview_data(df):
-    print(df.head())
+def describe(df):
+    first_object = "Preview of the DataFrame:"  # First object: header material
+    second_object = df.head()  # Second object: first few rows of the DataFrame
+    return [first_object, second_object]  # Return a list with both objects
 
-preview_data(data)
+# Example of using the function
+result = preview_data(data)
+print(result[0])  # This prints the header material
+print(result[1])  # This prints the DataFrame preview
 ```
