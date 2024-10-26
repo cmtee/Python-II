@@ -21,17 +21,31 @@ include-before-body:
 ```{python}
 import pandas as pd
 import numpy as np
+import altair as alt
 
 np.random.seed(42)
 data = pd.DataFrame(np.random.rand(100), columns=['Random Numbers'])
 
 def describe(df):
-    first_object = "Preview of the DataFrame:"  # First object: header material
-    second_object = df.head()  # Second object: first few rows of the DataFrame
-    return [first_object, second_object]  # Return a list with both objects
+    # First object: header material
+    first_object = "Preview of the DataFrame and Histogram:"
+    
+    # Second object: first few rows of the DataFrame
+    second_object = df.head()
+    
+    # Create a histogram using Altair
+    histogram = alt.Chart(df).mark_bar().encode(
+        x=alt.X('Random Numbers:Q', bin=alt.Bin(maxbins=10)),  # Quantitative encoding for the x-axis with binning
+        y='count():Q'        
+    ).properties(
+        title='Histogram of Random Numbers',
+        width=600,
+        height=400
+    )
 
-# Example of using the function
-result = preview_data(data)
-print(result[0])  # This prints the header material
-print(result[1])  # This prints the DataFrame preview
-```
+    return [first_object, second_object, str(histogram)]
+
+result = describe(data)
+print(result[0])
+print(result[1])
+print(result[2])
