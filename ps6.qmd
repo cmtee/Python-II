@@ -122,8 +122,10 @@ chart = alt.Chart(long_data).mark_bar().encode(
     height=400
 )
 
-chart
+chart.show()
 ```
+
+![Null](null.png)
 
 I can observe NULL values for nThumbsUp, some in street, and some in subtype. The variable with the highest share of NULLs is nThumbsUp, which consists almost entirely of NULLs.
 
@@ -514,9 +516,10 @@ top_10_chart = alt.Chart(top_10).mark_circle(color='red').encode(
 )
 
 # Display the chart
-top_10_chart
+top_10_chart.show()
 ```
 
+![Top 10](top_10_chart.png)
 3. 
     
 a. 
@@ -624,9 +627,10 @@ jam_chart = jam_chart.configure_view(
 ```{python}
 # Save the chart as an interactive HTML file
 jam_chart.save('jam_chart.html')
-jam_chart
+jam_chart.show()
 ```
 
+![Jam Chart](jam_chart.png)
 a.
 Total number of type-subtype combinations: 11
 
@@ -811,7 +815,7 @@ for i, (chart, hour) in enumerate(jam_hour_charts):
 ```
 
 ```{python}
-jam_hour_chart
+jam_hour_chart.show()
 ```
 
 2.
@@ -945,10 +949,10 @@ for i, (chart, hour) in enumerate(jam_hour_charts):
 
 ```
 
-```{python}
-jam_hour_chart
-```
-
+![Slider Chart1](top_alerts_map_byhour_sliderrange_06-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_07-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_08-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_09-00.png)
 2. 
 
 a. See image
