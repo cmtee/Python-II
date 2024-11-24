@@ -818,6 +818,10 @@ for i, (chart, hour) in enumerate(jam_hour_charts):
 jam_hour_chart.show()
 ```
 
+![Hour1](hour1.png)
+![Hour2](hour2.png)
+![Hour3](hour3.png)
+
 2.
 ```{python}
 # | echo: true
@@ -948,6 +952,7 @@ for i, (chart, hour) in enumerate(jam_hour_charts):
     print(f"Chart saved to: {output_path}")
 
 ```
+
 
 ![Slider Chart1](top_alerts_map_byhour_sliderrange_06-00.png)
 ![Slider Chart1](top_alerts_map_byhour_sliderrange_07-00.png)
