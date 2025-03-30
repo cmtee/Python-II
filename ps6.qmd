@@ -1,0 +1,987 @@
+---
+title: "Problem Set 6 - Waze Shiny Dashboard"
+author: "Clarice Tee"
+date: Nov 23, 2024
+format: 
+  pdf:
+    include-in-header: 
+       text: |
+         \usepackage{fvextra}
+         \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+include-before-body:
+  text: |
+    \RecustomVerbatimEnvironment{verbatim}{Verbatim}{
+      showspaces = false,
+      showtabs = false,
+      breaksymbolleft={},
+      breaklines
+    }
+---
+Statement of integrity: I used the slides on shiny app creation, chatgpt, and https://shiny.posit.co/py/docs/overview.html to guide me and troubleshoot/debug. 
+
+# Steps to submit (10 points on PS6) {-}
+
+1. "This submission is my work alone and complies with the 30538 integrity
+policy." Add your initials to indicate your agreement: * CT *
+2. "I have uploaded the names of anyone I worked with on the problem set **[here](https://docs.google.com/forms/d/185usrCREQaUbvAXpWhChkjghdGgmAZXA3lPWpXLLsts/edit)**" (2 point)
+3. Late coins used this pset: *1* Late coins left after submission: *0*
+
+4. Before starting the problem set, make sure to read and agree to the terms of data usage for the Waze data [here](https://canvas.uchicago.edu/courses/59054/quizzes/130617).
+
+5. Knit your `ps6.qmd` as a pdf document and name it `ps6.pdf`.
+6. Push your `ps6.qmd`, `ps6.pdf`, `requirements.txt`, and all created folders (we will create three Shiny apps so you will have at least three additional folders) to your Github repo (5 points). It is fine to use Github Desktop.
+7. Submit `ps6.pdf` and also link your Github repo via Gradescope (5 points)
+8. Tag your submission in Gradescope. For the Code Style part (10 points) please tag the whole correspondingsection for the code style rubric.
+
+*Notes: see the [Quarto documentation (link)](https://quarto.org/docs/authoring/figures.html) for directions on inserting images into your knitted document.*
+
+
+```{python} 
+#| echo: false
+
+# Import required packages.
+import pandas as pd
+import altair as alt 
+import pandas as pd
+from datetime import date
+import numpy as np
+alt.data_transformers.disable_max_rows() 
+
+import json
+```
+
+# Background {-}
+
+## Data Download and Exploration (20 points){-} 
+
+1. 
+
+```{python}
+import zipfile
+```
+```{python}
+zip_file_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\waze_data.zip'
+
+# Extract the ZIP file
+with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    zip_ref.extractall(r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6')  # Ensure the path is valid
+
+# Read the extracted sample CSV file
+sample_csv_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\waze_data_sample.csv'
+waze_sample_df = pd.read_csv(sample_csv_path)
+
+# Inspect the DataFrame
+print(waze_sample_df.head())
+```
+
+These are the data types:
+- Unnamed: 0: Nominal
+- city: Nominal
+- confidence: Quantitative
+- nThumbsUp: Quantitative
+- street: Nominal
+- uuid: Nominal
+- country: Nominal
+- type: Nominal
+- subtype: Nominal
+- roadType: Quantitative
+- reliability: Quantitative
+- magvar: Quantitative
+- reportRating: Quantitative
+
+2. 
+```{python}
+waze_data_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\waze_data.csv' 
+
+waze_data_df = pd.read_csv(waze_data_path)
+
+# Count missing and non-missing values for each column
+missing_data_summary = pd.DataFrame({
+    'Variable': waze_data_df.columns,
+    'NULL': waze_data_df.isnull().sum(),
+    'Not NULL': waze_data_df.notnull().sum()
+})
+
+# Transform to long format for Altair visualization
+long_data = missing_data_summary.melt(
+    id_vars='Variable',
+    value_vars=['NULL', 'Not NULL'],
+    var_name='Status',
+    value_name='Count'
+)
+
+# Create the stacked bar chart
+chart = alt.Chart(long_data).mark_bar().encode(
+    x=alt.X('Variable', sort=None, title='Variables'),
+    y=alt.Y('Count', title='Number of Observations'),
+    color=alt.Color('Status', scale=alt.Scale(scheme='category10'), title='Observation Status'),
+    tooltip=['Variable', 'Status', 'Count']
+).properties(
+    title='Missing vs Non-Missing Observations by Variable',
+    width=800,
+    height=400
+)
+
+chart.show()
+```
+
+![Null](null.png)
+
+I can observe NULL values for nThumbsUp, some in street, and some in subtype. The variable with the highest share of NULLs is nThumbsUp, which consists almost entirely of NULLs.
+
+3. 
+Taking a look at the values
+
+```{python}
+types = waze_data_df['type']
+subtypes = waze_data_df['subtype']
+```
+
+```{python}
+# Print unique values for type and subtype
+print("Unique types:")
+print(waze_data_df['type'].unique())
+print("\nUnique subtypes:")
+print(waze_data_df['subtype'].unique())
+
+# Count types with NA subtypes
+na_subtypes_count = waze_data_df[waze_data_df['subtype'].isna()]['type'].nunique()
+print(f"\nNumber of types with NA subtypes: {na_subtypes_count}")
+
+# Identify types with potential sub-subtypes
+subtypes_for_types = waze_data_df[waze_data_df['subtype'].notna()].groupby('type')['subtype'].unique()
+print("\nSubtypes for each type:")
+print(subtypes_for_types)
+```
+
+
+a. All four main types have at least one instance of NA subtypes. There are multiple examples of 'sub-sub-types'. For example, the type Hazard specifies On Road, which can then further specify into what the exact hazard was.
+
+
+Hierarcy
+* Jam
+  * Traffic
+    * Standstill
+    * Heavy
+    * Moderate
+    * Light
+    * Unclasified
+  * Road Closed
+    * Construction
+    * Event
+    * Accident
+    * Unclasified
+* Accident
+  * Major
+  * Minor
+  * Reported
+* Hazard
+  * On Road
+    * Specific HAzards
+  * On Shoulder
+    * Specific Hazars
+  * Weather
+    * Weather conditinos
+* Note on Map
+  * General
+  * Point of Interest
+
+I think we should keep the NA subtypes and code them as "Unclassified". This would mean that we keep all the information on reported events, which we could use in the future.  Right now, we could find patterns or gaps in the reporting system, and maintains transparency about data limitations. NAs could, afterall, be due to incomplete reports from users in a hurry, ambiguous  that don't fit neatly into existing categories, or  technical issues in data processing.
+```{python}
+waze_data_df['subtype'] = waze_data_df['subtype'].fillna('Unclassified')
+```
+
+4. 
+
+1. 
+```{python}
+# Get unique combinations of type and subtype
+unique_combinations = waze_data_df[['type', 'subtype']].drop_duplicates()
+
+# Create the crosswalk DataFrame
+crosswalk_df = pd.DataFrame({
+    'type': unique_combinations['type'],
+    'subtype': unique_combinations['subtype'].fillna('Unclassified'),
+    'updated_type': '',
+    'updated_subtype': '',
+    'updated_subsubtype': ''
+})
+```
+
+2. 
+```{python}
+def clean_name(name):
+    """Cleans and formats a string by replacing underscores with spaces and capitalizing each word."""
+    return ' '.join(word.capitalize() for word in name.replace('_', ' ').split())
+
+def create_user_friendly_label(row):
+    """Create a user-friendly label for the last column."""
+    label_parts = [row['updated_type']]
+    if row['updated_subsubtype'] != 'Unclassified':
+        label_parts.append(row['updated_subsubtype'])
+    if row['updated_subtype'] != 'Unclassified':
+        label_parts.append(row['updated_subtype'])
+    return ' - '.join(label_parts)
+
+def map_to_hierarchy(row): 
+    # Extract original fields
+    original_type = row['type']
+    original_subtype = row['subtype']
+    
+    # Initialize new fields
+    row['updated_type'] = ''
+    row['updated_subtype'] = ''
+    row['updated_subsubtype'] = ''
+    
+    # Map types and subtypes to the hierarchy
+    if 'JAM' in original_type:
+        row['updated_type'] = 'Jam'
+        row['updated_subtype'] = 'Traffic'
+        if 'STAND_STILL' in original_subtype:
+            row['updated_subsubtype'] = 'Stand Still'
+        elif 'HEAVY' in original_subtype:
+            row['updated_subsubtype'] = 'Heavy'
+        elif 'MODERATE' in original_subtype:
+            row['updated_subsubtype'] = 'Moderate'
+        elif 'LIGHT' in original_subtype:
+            row['updated_subsubtype'] = 'Light'
+        else:
+            row['updated_subsubtype'] = 'Unclassified'
+    elif 'ROAD_CLOSED' in original_type:
+        row['updated_type'] = 'Road Closed'
+        if 'CONSTRUCTION' in original_subtype:
+            row['updated_subtype'] = 'Construction'
+        elif 'EVENT' in original_subtype:
+            row['updated_subtype'] = 'Event'
+        elif 'HAZARD' in original_subtype:
+            row['updated_subtype'] = 'Hazard'
+        else:
+            row['updated_subtype'] = 'Unclassified'
+    elif 'ACCIDENT' in original_type:
+        row['updated_type'] = 'Accident'
+        if 'MAJOR' in original_subtype:
+            row['updated_subtype'] = 'Major'
+        elif 'MINOR' in original_subtype:
+            row['updated_subtype'] = 'Minor'
+        else:
+            row['updated_subtype'] = 'Reported'
+    elif 'HAZARD' in original_type:
+        row['updated_type'] = 'Hazard'
+        if 'ON_ROAD' in original_subtype:
+            row['updated_subtype'] = 'On Road'
+            if original_subtype == 'HAZARD_ON_ROAD':
+                row['updated_subsubtype'] = 'Unclassified'
+            else:
+                row['updated_subsubtype'] = clean_name(original_subtype.replace('HAZARD_ON_ROAD_', ''))
+        elif 'ON_SHOULDER' in original_subtype:
+            row['updated_subtype'] = 'On Shoulder'
+            if original_subtype == 'HAZARD_ON_SHOULDER':
+                row['updated_subsubtype'] = 'Unclassified'
+            else:
+                row['updated_subsubtype'] = clean_name(original_subtype.replace('HAZARD_ON_SHOULDER_', ''))
+        elif 'WEATHER' in original_subtype:
+            row['updated_subtype'] = 'Weather'
+            row['updated_subsubtype'] = clean_name(original_subtype.replace('HAZARD_WEATHER_', ''))
+        else:
+            row['updated_subtype'] = 'Unclassified'
+
+    # Fallback for unclassified rows
+    if not row['updated_type']:
+        row['updated_type'] = clean_name(original_type)
+    if not row['updated_subtype']:
+        row['updated_subtype'] = 'Unclassified'
+    if not row['updated_subsubtype']:
+        row['updated_subsubtype'] = 'Unclassified'
+
+    # Create user-friendly label
+    row['user_friendly_label'] = create_user_friendly_label(row)
+    return row
+
+# Apply the mapping function to each row
+crosswalk_df = crosswalk_df.apply(map_to_hierarchy, axis=1)
+
+# Rearrange columns: keep original type/subtype, then new columns, then the user-friendly label
+columns_order = ['type', 'subtype', 'updated_type', 'updated_subtype', 
+                 'updated_subsubtype', 'user_friendly_label']
+crosswalk_df = crosswalk_df[columns_order]
+```
+
+```{python}
+# Sort the DataFrame alphabetically by the user-friendly label
+crosswalk_df = crosswalk_df.sort_values(['user_friendly_label'])
+
+# Display the final DataFrame
+print(crosswalk_df)
+```
+
+
+3. 
+
+```{python}
+# Merge the crosswalk with the original data
+merged_df = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\merged_df.csv'
+merged_df = waze_data_df.merge(crosswalk_df, on=['type', 'subtype'], how='left')
+
+# Count rows for Accident - Unclassified
+accident_unclassified_count = merged_df[(merged_df['updated_type'] == 'Accident') & 
+                                        (merged_df['updated_subtype'] == 'Unclassified')].shape[0]
+
+print(f"Number of rows for Accident - Unclassified: {accident_unclassified_count}")
+```
+
+
+There are zero rows for which accident is unclassified.
+
+4. 
+
+```{python}
+# Check if all type and subtype combinations in the merged dataset exist in the crosswalk
+merged_combinations = merged_df[['type', 'subtype']].drop_duplicates()
+crosswalk_combinations = crosswalk_df[['type', 'subtype']]
+
+are_equal = merged_combinations.equals(crosswalk_combinations)
+
+print(f"Crosswalk and merged dataset have the same type and subtype combinations: {are_equal}")
+
+if not are_equal:
+    print("Differences:")
+    print(merged_combinations[~merged_combinations.isin(crosswalk_combinations)].dropna())
+```
+
+
+# App #1: Top Location by Alert Type Dashboard (30 points){-}
+
+1. 
+ChatGPT's response
+a. 
+```{python}
+import re
+
+pattern = r'POINT\((-?\d+\.\d+)\s(-?\d+\.\d+)\)'
+
+# Extract latitude and longitude using the updated regex
+waze_data_df[['longitude', 'latitude']] = waze_data_df['geo'].str.extract(pattern)
+
+# Convert the extracted values to float
+waze_data_df[['latitude', 'longitude']] = waze_data_df[['latitude', 'longitude']].astype(float)
+
+# Display the updated DataFrame with latitude and longitude
+print(waze_data_df[['geo', 'latitude', 'longitude']])
+```
+
+b. 
+```{python}
+# Bin latitude and longitude into bins with step size 0.01
+waze_data_df['binned_latitude'] = (waze_data_df['latitude'] // 0.01) * 0.01
+waze_data_df['binned_longitude'] = (waze_data_df['longitude'] // 0.01) * 0.01
+```
+
+```{python}
+# Count the number of observations for each binned latitude-longitude combination
+binned_counts = waze_data_df.groupby(['binned_latitude', 'binned_longitude']).size().reset_index(name='count')
+```
+
+
+```{python}
+# Identify the binned latitude-longitude combination with the greatest number of observations
+max_binned = binned_counts.loc[binned_counts['count'].idxmax()]
+
+result = f"({max_binned['binned_latitude']:.2f}, {max_binned['binned_longitude']:.2f})"
+
+print(f"The binned latitude-longitude combination with the greatest number of observations is: {result}")
+print(f"Number of observations: {max_binned['count']}")
+```
+
+c. 
+
+```{python}
+import os as os
+```
+```{python}
+chosen_type = 'Jam'
+chosen_subtype = 'Traffic'
+
+# Merge waze_data_df with crosswalk_df to get updated types and subtypes
+merged_df = waze_data_df.merge(
+    crosswalk_df, on=['type', 'subtype'], how='left')
+
+# Filter data for chosen updated type and subtype
+filtered_data = merged_df[
+    (merged_df['updated_type'] == chosen_type) &
+    (merged_df['updated_subtype'] == chosen_subtype)
+]
+
+# Bin latitude and longitude into bins with step size 0.01
+filtered_data['binned_latitude'] = (filtered_data['latitude'] // 0.01) * 0.01
+filtered_data['binned_longitude'] = (filtered_data['longitude'] // 0.01) * 0.01
+
+# Aggregate the data to count the number of alerts per binned latitude and longitude
+aggregated_data = filtered_data.groupby(
+    ['binned_latitude', 'binned_longitude']).size().reset_index(name='alert_count')
+
+# Sort the aggregated data by alert_count in descending order
+sorted_data = aggregated_data.sort_values(by='alert_count', ascending=False)
+
+# Ensure the directory exists
+output_dir = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map'
+os.makedirs(output_dir, exist_ok=True)
+
+# Save the resulting DataFrame as 'top_alerts_map.csv' in the specified folder
+output_path = os.path.join(output_dir, 'top_alerts_map.csv')
+sorted_data.to_csv(output_path, index=False)
+
+# Load the saved DataFrame to count the number of rows
+saved_data = pd.read_csv(output_path)
+
+# Count the number of rows in the saved DataFrame
+num_rows = saved_data.shape[0]
+
+# Level of aggregation
+level_of_aggregation = "Binned latitude and longitude for chosen updated type and subtype"
+
+print(f"Level of aggregation: {level_of_aggregation}")
+print(f"Number of rows in the DataFrame: {num_rows}")
+print(saved_data)
+
+# Additional information
+print(f"\nChosen type: {chosen_type}")
+print(f"Chosen subtype: {chosen_subtype}")
+print(
+    f"\nTotal alerts for {chosen_type} - {chosen_subtype}: {filtered_data.shape[0]}")
+print(f"Number of unique latitude-longitude bins: {aggregated_data.shape[0]}")
+
+```
+
+We observe 647 unique long-lat bins. We are aggregating by Jam and Traffic.
+
+2. 
+
+```{python}
+# Filter for heavy traffic jams: type = 'Jam', subtype = 'Traffic', and subsubtype = 'Heavy'
+jam_heavy = merged_df[
+    (merged_df['updated_type'] == 'Jam') &
+    (merged_df['updated_subtype'] == 'Traffic') &
+    (merged_df['updated_subsubtype'] == 'Heavy')
+]
+
+# Aggregate data by latitude-longitude bins
+aggregated = jam_heavy.groupby(
+    ['binned_latitude', 'binned_longitude']).size().reset_index(name='alert_count')
+
+# Filter the top 10 locations with the highest alert count
+top_10 = aggregated.nlargest(10, 'alert_count')
+```
+
+```{python}
+# Create the chart with the top 10 locations
+# Calculate min and max for latitude and longitude to adjust axis range
+min_lat, max_lat = top_10['binned_latitude'].min(
+), top_10['binned_latitude'].max()
+min_lon, max_lon = top_10['binned_longitude'].min(
+), top_10['binned_longitude'].max()
+
+# Add padding to the range for better visibility
+lat_padding = (max_lat - min_lat) * 0.1
+lon_padding = (max_lon - min_lon) * 0.1
+
+top_10_chart = alt.Chart(top_10).mark_circle(color='red').encode(
+    x=alt.X('binned_longitude:Q', title='Longitude', scale=alt.Scale(
+        domain=[min_lon - lon_padding, max_lon + lon_padding])),
+    y=alt.Y('binned_latitude:Q', title='Latitude', scale=alt.Scale(
+        domain=[min_lat - lat_padding, max_lat + lat_padding])),
+    size=alt.Size('alert_count:Q', scale=alt.Scale(
+        range=[50, 750]), title='Alert Count'),
+    tooltip=[
+        alt.Tooltip('binned_latitude:Q', title='Latitude'),
+        alt.Tooltip('binned_longitude:Q', title='Longitude'),
+        alt.Tooltip('alert_count:Q', title='Alert Count')
+    ]
+).properties(
+    title='Top 10 Locations for Jam - Heavy Traffic Alerts',
+    width=600,
+    height=400
+).configure_axis(
+    grid=True,  # Disable grid lines
+    labelFontSize=12,  # Axis label font size
+    titleFontSize=14,  # Axis title font size
+    titleFontWeight='bold',  # Bold axis titles
+    labelPadding=10  # Space between axis labels and the axis
+).configure_title(
+    fontSize=16,  # Font size for chart title
+    fontWeight='bold'  # Bold chart title
+).configure_legend(
+    titleFontSize=14,  # Font size for legend title
+    labelFontSize=12,  # Font size for legend labels
+    symbolSize=100  # Adjust size of the legend symbols
+)
+
+# Display the chart
+top_10_chart.show()
+```
+
+![Top 10](top_10_chart.png)
+3. 
+    
+a. 
+
+```{python}
+# Specify the directory and file path
+directory = r"C:\Users\clari\OneDrive\Documents\Python II\problem set 6"
+file_path = os.path.join(directory, "chicago-boundaries.geojson")
+
+with open(file_path) as f:
+    chicago_geojson = json.load(f)
+
+geo_data = alt.Data(values=chicago_geojson["features"])
+```
+    
+
+b. 
+
+```{python}
+import requests
+import json
+```
+
+```{python}
+# URL of the Chicago neighborhood boundaries GeoJSON
+url = "https://data.cityofchicago.org/api/geospatial/bbvz-uum9?method=export&format=GeoJSON"
+
+# Download the file
+response = requests.get(url)
+chicago_geojson = response.json()
+
+# Create the directory if it doesn't exist
+os.makedirs(directory, exist_ok=True)
+
+# Save the file locally
+with open(file_path, "w") as f:
+    json.dump(chicago_geojson, f)
+
+print(f"File saved to: {file_path}")
+geo_data = alt.Data(values=chicago_geojson["features"])
+```
+
+```{python}
+if "features" in chicago_geojson and chicago_geojson["features"]:
+    geo_data = alt.Data(values=chicago_geojson["features"])
+else:
+    print("GeoJSON 'features' key is missing or empty")
+```
+
+4. 
+
+```{python}
+# Apply equirectangular projection to map
+base = alt.Chart(geo_data).mark_geoshape(
+    fill='lightgray',
+    stroke='white'
+).properties(
+    width=600,
+    height=400
+).project(
+    type='equirectangular',
+)
+
+# If the map shows up correctly, continue with the points layer
+top_10_chart = alt.Chart(top_10).mark_circle(color='red').encode(
+    x=alt.X('binned_longitude:Q', title='Longitude', scale=alt.Scale(
+        domain=[min_lon - lon_padding, max_lon + lon_padding])),
+    y=alt.Y('binned_latitude:Q', title='Latitude', scale=alt.Scale(
+        domain=[min_lat - lat_padding, max_lat + lat_padding])),
+    size=alt.Size('alert_count:Q', scale=alt.Scale(
+        range=[50, 750]), title='Alert Count'),
+    tooltip=[
+        alt.Tooltip('binned_latitude:Q', title='Latitude'),
+        alt.Tooltip('binned_longitude:Q', title='Longitude'),
+        alt.Tooltip('alert_count:Q', title='Alert Count')
+    ]
+)
+
+# Combine the base map and points layer using alt.layer
+jam_chart = alt.layer(base, top_10_chart).properties(
+    title='Top 10 Locations for Jam - Heavy Traffic Alerts',
+    width=600,
+    height=400
+)
+
+# Apply configurations to the combined chart (outside of alt.layer)
+jam_chart = jam_chart.configure_view(
+    strokeWidth=0  # Remove border around the chart
+).configure_axis(
+    grid=True,  # Add grid lines
+    labelFontSize=12,
+    titleFontSize=14,  # Axis title font size
+    titleFontWeight='bold',  # Bold axis titles
+    labelPadding=10  # Padding for axis labels
+).configure_title(
+    fontSize=16,  # Font size for chart title
+    fontWeight='bold'  # Bold chart title
+).configure_legend(
+    titleFontSize=14,  # Font size for legend title
+    labelFontSize=12,  # Font size for legend labels
+    symbolSize=100  # Adjust size of the legend symbols
+)
+```
+
+```{python}
+# Save the chart as an interactive HTML file
+jam_chart.save('jam_chart.html')
+jam_chart.show()
+```
+
+![Jam Chart](jam_chart.png)
+a.
+Total number of type-subtype combinations: 11
+
+![Dropdown menu](dropdown.png)
+
+b.
+
+![Jam- Heavy Traffic](heavy_traffic.png)
+
+
+c. Road closures due to an event seem to be most common at the North-West side of Chicago. Unfortunately, I don't have the long-lat because it won't load properly if I add it in, so I can't give the location.
+
+![Road CLosure- Events](app1c.png)
+
+
+d.Where can we expect there to be the most number of major traffic accidents?
+
+We can expect most of the major traffic accidents to be around the upper- middle partof Chicago. Unfortunately, I don't have the long-lat because it won't load properly if I add it in, so I can't give the location.
+
+![Major Traffic Accidents](app1d.png)
+
+
+e. Can you suggest adding another column to the dashboard to enhance our analysis?
+
+The dashboard could benefit from more information about the time of day in which these accidents occur, along with more specific information as to where they occur. Currently, our dashboard displays this data in coordinates relative to a city map, which is helpful if you're already familiar with the area. For an outsider, more details about specific streets and highways would be quite helpful.
+
+
+# App #2: Top Location by Alert Type and Hour Dashboard (20 points) {-}
+1. 
+a. Yes, I think it's a good idea, especially if we aim to analyze alerts by hour of the day (as suggested in the query), 
+collapsing the data by ts into hourly bins makes sense. This would allow you to identify patterns or trends in alerts based on the time of day.
+Reducing Data Size: If the dataset is very large, collapsing by ts can reduce its size, especially if you're aggregating alerts into hourly or daily bins.
+Time-Based Analysis: Collapsing by ts enables temporal analysis, such as understanding peak traffic hours, accident-prone times, or hazard trends.
+
+    
+b. 
+```{python}
+merged_df_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\merged_df.csv'
+merged_df = pd.read_csv(merged_df_path)
+
+# Check if 'geo' column exists
+if 'geo' in merged_df.columns:
+    # Extract latitude and longitude from the 'geo' column using regex
+    pattern = r'POINT\((-?\d+\.\d+)\s(-?\d+\.\d+)\)'
+    merged_df[['longitude', 'latitude']] = merged_df['geo'].str.extract(
+        pattern).astype(float)
+else:
+    raise ValueError("The dataset does not contain a 'geo' column.")
+```
+
+```{python}
+# Bin latitude and longitude into bins with step size 0.01
+merged_df['binned_latitude'] = (merged_df['latitude'] // 0.01) * 0.01
+merged_df['binned_longitude'] = (merged_df['longitude'] // 0.01) * 0.01
+
+# Check how many rows the dataset has
+row_count = merged_df.shape[0]
+print(f"The dataset contains {row_count} rows.")
+```
+
+
+```{python}
+if merged_df['ts'].dtype != 'datetime64[ns]':
+    # Convert 'ts' to datetime format
+    merged_df['ts'] = pd.to_datetime(
+        merged_df['ts'].str.replace("UTC", ""), errors='coerce')
+
+# Extract the hour (floor to the start of the hour) from the 'ts' column
+merged_df['hour'] = merged_df['ts'].dt.floor('H')
+```
+    
+
+```{python}
+# Group and aggregate by hour, binned latitude, and longitude
+aggregated_data = (
+    merged_df.groupby(['hour', 'binned_latitude', 'binned_longitude'])
+    .size()
+    .reset_index(name='alert_count')
+)
+
+# Rank and filter top 10 alerts per hour
+aggregated_data['rank'] = aggregated_data.groupby(
+    'hour')['alert_count'].rank(ascending=False, method='first')
+top_10_per_hour = aggregated_data[aggregated_data['rank'] <= 10].drop(
+    columns='rank')
+
+# Save the collapsed dataset
+output_folder = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour'
+os.makedirs(output_folder, exist_ok=True)
+output_path = os.path.join(output_folder, 'top_alerts_map_byhour.csv')
+top_10_per_hour.to_csv(output_path, index=False)
+
+print(f"Number of rows in the dataset: {len(top_10_per_hour)}")
+```
+
+c.
+
+```{python}
+import random
+```
+```{python}
+data_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour\top_alerts_map_byhour.csv'
+top_alerts_df = pd.read_csv(data_path)
+
+# Remove timezone information from 'hour' column
+top_alerts_df['hour'] = pd.to_datetime(
+    top_alerts_df['hour']).dt.tz_localize(None)
+
+# Specify the 3 specific hours you want to focus on
+# Modify this list to the specific hours you want
+specific_hours = ['08:00', '12:00', '18:00']
+
+print(f"Selected specific hours: {specific_hours}")
+
+# Load GeoJSON data for Chicago boundaries
+geojson_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\chicago-boundaries.geojson'
+with open(geojson_path) as f:
+    chicago_geojson = json.load(f)
+geo_data = alt.Data(values=chicago_geojson["features"])
+
+# Initialize an empty list to store charts
+jam_hour_charts = []
+
+for hour in specific_hours:
+    # Filter data for the specific hour
+    hourly_data = top_alerts_df[top_alerts_df['hour'].dt.strftime(
+        '%H:%M') == hour]
+
+    # Sort by alert_count and select the top 10 rows
+    hourly_data_top_10 = hourly_data.sort_values(
+        by='alert_count', ascending=False).head(10)
+
+    # Debugging: Print filtered data
+    print(f"\nData for hour {hour}:")
+    print(hourly_data_top_10)
+
+    if hourly_data_top_10.empty:
+        print(f"No data available for hour {hour}. Skipping...")
+        continue
+
+    # Create map layer (base map)
+    base_map = alt.Chart(geo_data).mark_geoshape(
+        fill='lightgray',
+        stroke='white'
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    # Add points layer for top locations
+    points_layer = alt.Chart(hourly_data_top_10).mark_circle().encode(
+        longitude='binned_longitude:Q',
+        latitude='binned_latitude:Q',
+        size=alt.Size('alert_count:Q', scale=alt.Scale(range=[10, 100])),
+        color=alt.value('red'),
+        tooltip=['binned_longitude', 'binned_latitude', 'alert_count']
+    )
+
+    # Combine base map and points layer
+    jam_hour_chart = alt.layer(base_map, points_layer).project(
+        type='mercator',
+        scale=50000,
+        center=[-87.65, 41.88]  # Approximate center of Chicago
+    ).properties(
+        title=f"Top 10 Locations for Alerts at {hour}"
+    )
+
+    # Append chart to list of charts
+    jam_hour_charts.append((jam_hour_chart, hour))
+```
+
+```{python}
+# Save each chart as an HTML file if needed
+output_folder = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6'
+os.makedirs(output_folder, exist_ok=True)
+
+for i, (chart, hour) in enumerate(jam_hour_charts):
+    output_path = os.path.join(
+        output_folder, f'jam_hour_chart_{hour.replace(":", "-")}.html')
+    chart.save(output_path)
+    print(f"Chart saved to: {output_path}")
+```
+
+```{python}
+jam_hour_chart.show()
+```
+
+![Hour1](hour1.png)
+![Hour2](hour2.png)
+![Hour3](hour3.png)
+
+2.
+```{python}
+# | echo: true
+# | eval: false
+
+def print_file_contents(file_path):
+    """Print contents of a file."""
+    try:
+        with open(file_path, 'r') as f:
+            content = f.read()
+            print("```python")
+            print(content)
+            print("```")
+    except FileNotFoundError:
+        print("```python")
+        print(f"Error: File '{file_path}' not found")
+        print("```")
+    except Exception as e:
+        print("```python")
+        print(f"Error reading file: {e}")
+        print("```")
+
+
+# Printing the contents of your app2.py file
+print_file_contents(
+    r"C:\Users\clari\OneDrive\Documents\Python II\problem set 6\app2.py")
+```
+
+a. 
+![App2 Type-Subtype](app2a.png)
+
+b.
+![App2 Type-Subtype](app2b.png)
+
+
+c. Unfortunately, although my app was working successfully before, after returning to it the following day, I couldn't recreate the points on the graph despite using the exact same code. This means I'm unable to provide screenshots (i.e. regardless of what time I choose, the map is empty), though based on when the app was running, I was able to gather than closures to to construction are much more common at night than they are during the morning. This makes sense, as late into the night is when they would be ideally be the least disruptive to commuters.
+
+
+# App #3: Top Location by Alert Type and Hour Dashboard (20 points){-}
+
+1. 
+
+a. Though collapsing the data was useful earlier and easier for shiny to handle, it presents a problem if we're allowing users to select their own range of hours. If we collapse the data to pre-arrange it into certain time ranges, we remove user's ability to choose the windows of time for themselves. By not collapsing, we allow the data to dynamically adjust to whatever hours specified.
+
+b. 
+
+```{python}
+data_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour.csv'
+top_alerts_df = pd.read_csv(data_path)
+
+# Remove timezone information from 'hour' column
+top_alerts_df['hour'] = pd.to_datetime(
+    top_alerts_df['hour']).dt.tz_localize(None)
+
+# Specify the 3 specific hours you want to focus on (between 6AM-9AM)
+# Modify this list to the specific hours you want
+specific_hours = ['06:00', '07:00', '08:00', '09:00']
+
+print(f"Selected specific hours: {specific_hours}")
+
+# Load GeoJSON data for Chicago boundaries
+geojson_path = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6\chicago-boundaries.geojson'
+with open(geojson_path) as f:
+    chicago_geojson = json.load(f)
+geo_data = alt.Data(values=chicago_geojson["features"])
+
+# Initialize an empty list to store charts
+jam_hour_charts = []
+
+for hour in specific_hours:
+    # Filter data for the specific hour
+    hourly_data = top_alerts_df[top_alerts_df['hour'].dt.strftime(
+        '%H:%M') == hour]
+
+    # Sort by alert_count and select the top 10 rows
+    hourly_data_top_10 = hourly_data.sort_values(
+        by='alert_count', ascending=False).head(10)
+
+    # Debugging: Print filtered data
+    print(f"\nData for hour {hour}:")
+    print(hourly_data_top_10)
+
+    if hourly_data_top_10.empty:
+        print(f"No data available for hour {hour}. Skipping...")
+        continue
+
+    # Create map layer (base map) using the Chicago GeoJSON
+    base_map = alt.Chart(geo_data).mark_geoshape(
+        fill='lightgray',
+        stroke='white'
+    ).properties(
+        width=600,
+        height=400
+    )
+
+    # Add points layer for top locations (alerts)
+    points_layer = alt.Chart(hourly_data_top_10).mark_circle().encode(
+        longitude='binned_longitude:Q',
+        latitude='binned_latitude:Q',
+        size=alt.Size('alert_count:Q', scale=alt.Scale(range=[10, 100])),
+        color=alt.value('red'),
+        tooltip=['binned_longitude', 'binned_latitude', 'alert_count']
+    )
+
+    # Combine base map and points layer for the final chart
+    jam_hour_chart = alt.layer(base_map, points_layer).project(
+        type='mercator',
+        scale=50000,
+        center=[-87.65, 41.88]  # Approximate center of Chicago
+    ).properties(
+        title=f"Top 10 Locations for Alerts at {hour}",
+        width=600,
+        height=400
+    )
+
+    # Append the chart to the list
+    jam_hour_charts.append((jam_hour_chart, hour))
+
+# Save each chart as a PNG file using kaleido
+output_folder = r'C:\Users\clari\OneDrive\Documents\Python II\problem set 6'
+os.makedirs(output_folder, exist_ok=True)
+
+for i, (chart, hour) in enumerate(jam_hour_charts):
+    output_path = os.path.join(
+        output_folder, f'top_alerts_map_byhour_sliderrange_{hour.replace(":", "-")}.png')
+    # Using kaleido to save as PNG
+    chart.save(output_path, renderer='kaleido', scale=2.0)
+    print(f"Chart saved to: {output_path}")
+
+```
+
+
+![Slider Chart1](top_alerts_map_byhour_sliderrange_06-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_07-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_08-00.png)
+![Slider Chart1](top_alerts_map_byhour_sliderrange_09-00.png)
+2. 
+
+a. See image
+![App3-Range](app3_2a.png)
+
+b. See image
+![App3-Range](app3_2b.png)
+
+3. 
+
+a. According to the link, when using a switch button, we can assign a value of True, indicating the input.switch_button is turned on (switching to a range of hours, for example), or False, when the switch is turned off (switching to just one specific hour).
+
+![App3-Range](app3_3a.png)
+
+b. See images
+![App3-Switch](app3_3b1.png)
+
+![App3-Switch](app3_3b2.png)
+
+c. See images (use the variations)
+
+![App3-Function](app3_3c1.png)
+
+![App3-Function](app3_3c2.png)
+
+
+d. The plot seems to divide the data between morning and afternoon times and displays them both simultaneously. To do this, I'd assume our first step is to subset the data between the points that are in the morning (let's say all A.M. times) and another subset for the afternoon (we'll go with all P.M. times until midnight). We'd label the a.m. subset with an extra column indicating 'morning' and a similar 'afternoon' column. In the same way we had a button that toggles between one specific hour and a range, we can imagine a similar button which turns the display of morning points on or off, and another for afternoon points. When only one is on, we can focus solely on these points. If they're both on, they'll display much like what we see in this example plot.

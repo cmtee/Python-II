@@ -1,0 +1,1912 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Problem Set 6 - Waze Shiny Dashboard},
+  pdfauthor={Clarice Tee},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Problem Set 6 - Waze Shiny Dashboard}
+\author{Clarice Tee}
+\date{2024-11-23}
+
+\begin{document}
+\maketitle
+
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{
+  showspaces = false,
+  showtabs = false,
+  breaksymbolleft={},
+  breaklines
+}
+
+
+Statement of integrity: I used the slides on shiny app creation,
+chatgpt, and https://shiny.posit.co/py/docs/overview.html to guide me
+and troubleshoot/debug.
+
+\section*{Steps to submit (10 points on
+PS6)}\label{steps-to-submit-10-points-on-ps6}
+\addcontentsline{toc}{section}{Steps to submit (10 points on PS6)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  ``This submission is my work alone and complies with the 30538
+  integrity policy.'' Add your initials to indicate your agreement: * CT
+  *
+\item
+  ``I have uploaded the names of anyone I worked with on the problem set
+  \textbf{\href{https://docs.google.com/forms/d/185usrCREQaUbvAXpWhChkjghdGgmAZXA3lPWpXLLsts/edit}{here}}''
+  (2 point)
+\item
+  Late coins used this pset: \emph{1} Late coins left after submission:
+  \emph{0}
+\item
+  Before starting the problem set, make sure to read and agree to the
+  terms of data usage for the Waze data
+  \href{https://canvas.uchicago.edu/courses/59054/quizzes/130617}{here}.
+\item
+  Knit your \texttt{ps6.qmd} as a pdf document and name it
+  \texttt{ps6.pdf}.
+\item
+  Push your \texttt{ps6.qmd}, \texttt{ps6.pdf},
+  \texttt{requirements.txt}, and all created folders (we will create
+  three Shiny apps so you will have at least three additional folders)
+  to your Github repo (5 points). It is fine to use Github Desktop.
+\item
+  Submit \texttt{ps6.pdf} and also link your Github repo via Gradescope
+  (5 points)
+\item
+  Tag your submission in Gradescope. For the Code Style part (10 points)
+  please tag the whole correspondingsection for the code style rubric.
+\end{enumerate}
+
+\emph{Notes: see the
+\href{https://quarto.org/docs/authoring/figures.html}{Quarto
+documentation (link)} for directions on inserting images into your
+knitted document.}
+
+\section*{Background}\label{background}
+\addcontentsline{toc}{section}{Background}
+
+\subsection*{Data Download and Exploration (20
+points)}\label{data-download-and-exploration-20-points}
+\addcontentsline{toc}{subsection}{Data Download and Exploration (20
+points)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ zipfile}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zip\_file\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}waze\_data.zip\textquotesingle{}}
+
+\CommentTok{\# Extract the ZIP file}
+\ControlFlowTok{with}\NormalTok{ zipfile.ZipFile(zip\_file\_path, }\StringTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{) }\ImportTok{as}\NormalTok{ zip\_ref:}
+\NormalTok{    zip\_ref.extractall(}\VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textquotesingle{}}\NormalTok{)  }\CommentTok{\# Ensure the path is valid}
+
+\CommentTok{\# Read the extracted sample CSV file}
+\NormalTok{sample\_csv\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}waze\_data\_sample.csv\textquotesingle{}}
+\NormalTok{waze\_sample\_df }\OperatorTok{=}\NormalTok{ pd.read\_csv(sample\_csv\_path)}
+
+\CommentTok{\# Inspect the DataFrame}
+\BuiltInTok{print}\NormalTok{(waze\_sample\_df.head())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Unnamed: 0         city  confidence  nThumbsUp        street  \
+0      584358  Chicago, IL           0        NaN           NaN   
+1      472915  Chicago, IL           0        NaN        I-90 E   
+2      550891  Chicago, IL           0        NaN        I-90 W   
+3      770659  Chicago, IL           0        NaN           NaN   
+4      381054  Chicago, IL           0        NaN  N Pulaski Rd   
+
+                                   uuid country         type  \
+0  c9b88a12-79e8-44cb-aadd-a75855fc4bcb      US          JAM   
+1  7c634c0a-099c-4262-b57f-e893bdebce73      US  ROAD_CLOSED   
+2  7aa3c61a-f8dc-4fe8-bbb0-db6b9e0dc53b      US       HAZARD   
+3  3b95dd2f-647c-46de-b4e1-8ebc73aa9221      US       HAZARD   
+4  13a5e230-a28a-4bf4-b928-bc1dd38850e0      US          JAM   
+
+                          subtype  roadType  reliability  magvar  \
+0                             NaN        17            5     116   
+1               ROAD_CLOSED_EVENT         3            6     173   
+2  HAZARD_ON_SHOULDER_CAR_STOPPED         3            5     308   
+3                  HAZARD_ON_ROAD        20            5     155   
+4               JAM_HEAVY_TRAFFIC         7            5     178   
+
+   reportRating                       ts                          geo  \
+0             5  2024-07-02 18:27:40 UTC   POINT(-87.64577 41.892743)   
+1             0  2024-06-16 10:13:19 UTC  POINT(-87.646359 41.886295)   
+2             5  2024-05-02 19:01:47 UTC   POINT(-87.695982 41.93272)   
+3             2  2024-03-25 18:53:24 UTC  POINT(-87.669253 41.904497)   
+4             2  2024-06-03 21:17:33 UTC  POINT(-87.728322 41.978769)   
+
+                        geoWKT  
+0   Point(-87.64577 41.892743)  
+1  Point(-87.646359 41.886295)  
+2   Point(-87.695982 41.93272)  
+3  Point(-87.669253 41.904497)  
+4  Point(-87.728322 41.978769)  
+\end{verbatim}
+
+These are the data types: - Unnamed: 0: Nominal - city: Nominal -
+confidence: Quantitative - nThumbsUp: Quantitative - street: Nominal -
+uuid: Nominal - country: Nominal - type: Nominal - subtype: Nominal -
+roadType: Quantitative - reliability: Quantitative - magvar:
+Quantitative - reportRating: Quantitative
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{waze\_data\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}waze\_data.csv\textquotesingle{}} 
+
+\NormalTok{waze\_data\_df }\OperatorTok{=}\NormalTok{ pd.read\_csv(waze\_data\_path)}
+
+\CommentTok{\# Count missing and non{-}missing values for each column}
+\NormalTok{missing\_data\_summary }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}
+    \StringTok{\textquotesingle{}Variable\textquotesingle{}}\NormalTok{: waze\_data\_df.columns,}
+    \StringTok{\textquotesingle{}NULL\textquotesingle{}}\NormalTok{: waze\_data\_df.isnull().}\BuiltInTok{sum}\NormalTok{(),}
+    \StringTok{\textquotesingle{}Not NULL\textquotesingle{}}\NormalTok{: waze\_data\_df.notnull().}\BuiltInTok{sum}\NormalTok{()}
+\NormalTok{\})}
+
+\CommentTok{\# Transform to long format for Altair visualization}
+\NormalTok{long\_data }\OperatorTok{=}\NormalTok{ missing\_data\_summary.melt(}
+\NormalTok{    id\_vars}\OperatorTok{=}\StringTok{\textquotesingle{}Variable\textquotesingle{}}\NormalTok{,}
+\NormalTok{    value\_vars}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}NULL\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Not NULL\textquotesingle{}}\NormalTok{],}
+\NormalTok{    var\_name}\OperatorTok{=}\StringTok{\textquotesingle{}Status\textquotesingle{}}\NormalTok{,}
+\NormalTok{    value\_name}\OperatorTok{=}\StringTok{\textquotesingle{}Count\textquotesingle{}}
+\NormalTok{)}
+
+\CommentTok{\# Create the stacked bar chart}
+\NormalTok{chart }\OperatorTok{=}\NormalTok{ alt.Chart(long\_data).mark\_bar().encode(}
+\NormalTok{    x}\OperatorTok{=}\NormalTok{alt.X(}\StringTok{\textquotesingle{}Variable\textquotesingle{}}\NormalTok{, sort}\OperatorTok{=}\VariableTok{None}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Variables\textquotesingle{}}\NormalTok{),}
+\NormalTok{    y}\OperatorTok{=}\NormalTok{alt.Y(}\StringTok{\textquotesingle{}Count\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Number of Observations\textquotesingle{}}\NormalTok{),}
+\NormalTok{    color}\OperatorTok{=}\NormalTok{alt.Color(}\StringTok{\textquotesingle{}Status\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(scheme}\OperatorTok{=}\StringTok{\textquotesingle{}category10\textquotesingle{}}\NormalTok{), title}\OperatorTok{=}\StringTok{\textquotesingle{}Observation Status\textquotesingle{}}\NormalTok{),}
+\NormalTok{    tooltip}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}Variable\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Status\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Count\textquotesingle{}}\NormalTok{]}
+\NormalTok{).properties(}
+\NormalTok{    title}\OperatorTok{=}\StringTok{\textquotesingle{}Missing vs Non{-}Missing Observations by Variable\textquotesingle{}}\NormalTok{,}
+\NormalTok{    width}\OperatorTok{=}\DecValTok{800}\NormalTok{,}
+\NormalTok{    height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{)}
+
+\NormalTok{chart.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+alt.Chart(...)
+\end{verbatim}
+
+I can observe NULL values for nThumbsUp, some in street, and some in
+subtype. The variable with the highest share of NULLs is nThumbsUp,
+which consists almost entirely of NULLs.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Taking a look at the values
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{types }\OperatorTok{=}\NormalTok{ waze\_data\_df[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{]}
+\NormalTok{subtypes }\OperatorTok{=}\NormalTok{ waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Print unique values for type and subtype}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"Unique types:"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(waze\_data\_df[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{].unique())}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{Unique subtypes:"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].unique())}
+
+\CommentTok{\# Count types with NA subtypes}
+\NormalTok{na\_subtypes\_count }\OperatorTok{=}\NormalTok{ waze\_data\_df[waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].isna()][}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{].nunique()}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{Number of types with NA subtypes: }\SpecialCharTok{\{}\NormalTok{na\_subtypes\_count}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\CommentTok{\# Identify types with potential sub{-}subtypes}
+\NormalTok{subtypes\_for\_types }\OperatorTok{=}\NormalTok{ waze\_data\_df[waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].notna()].groupby(}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{)[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].unique()}
+\BuiltInTok{print}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{Subtypes for each type:"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(subtypes\_for\_types)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Unique types:
+['JAM' 'ACCIDENT' 'ROAD_CLOSED' 'HAZARD']
+
+Unique subtypes:
+[nan 'ACCIDENT_MAJOR' 'ACCIDENT_MINOR' 'HAZARD_ON_ROAD'
+ 'HAZARD_ON_ROAD_CAR_STOPPED' 'HAZARD_ON_ROAD_CONSTRUCTION'
+ 'HAZARD_ON_ROAD_EMERGENCY_VEHICLE' 'HAZARD_ON_ROAD_ICE'
+ 'HAZARD_ON_ROAD_OBJECT' 'HAZARD_ON_ROAD_POT_HOLE'
+ 'HAZARD_ON_ROAD_TRAFFIC_LIGHT_FAULT' 'HAZARD_ON_SHOULDER'
+ 'HAZARD_ON_SHOULDER_CAR_STOPPED' 'HAZARD_WEATHER' 'HAZARD_WEATHER_FLOOD'
+ 'JAM_HEAVY_TRAFFIC' 'JAM_MODERATE_TRAFFIC' 'JAM_STAND_STILL_TRAFFIC'
+ 'ROAD_CLOSED_EVENT' 'HAZARD_ON_ROAD_LANE_CLOSED' 'HAZARD_WEATHER_FOG'
+ 'ROAD_CLOSED_CONSTRUCTION' 'HAZARD_ON_ROAD_ROAD_KILL'
+ 'HAZARD_ON_SHOULDER_ANIMALS' 'HAZARD_ON_SHOULDER_MISSING_SIGN'
+ 'JAM_LIGHT_TRAFFIC' 'HAZARD_WEATHER_HEAVY_SNOW' 'ROAD_CLOSED_HAZARD'
+ 'HAZARD_WEATHER_HAIL']
+
+Number of types with NA subtypes: 4
+
+Subtypes for each type:
+type
+ACCIDENT                        [ACCIDENT_MAJOR, ACCIDENT_MINOR]
+HAZARD         [HAZARD_ON_ROAD, HAZARD_ON_ROAD_CAR_STOPPED, H...
+JAM            [JAM_HEAVY_TRAFFIC, JAM_MODERATE_TRAFFIC, JAM_...
+ROAD_CLOSED    [ROAD_CLOSED_EVENT, ROAD_CLOSED_CONSTRUCTION, ...
+Name: subtype, dtype: object
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  All four main types have at least one instance of NA subtypes. There
+  are multiple examples of `sub-sub-types'. For example, the type Hazard
+  specifies On Road, which can then further specify into what the exact
+  hazard was.
+\end{enumerate}
+
+Hierarcy * Jam * Traffic * Standstill * Heavy * Moderate * Light *
+Unclasified * Road Closed * Construction * Event * Accident *
+Unclasified * Accident * Major * Minor * Reported * Hazard * On Road *
+Specific HAzards * On Shoulder * Specific Hazars * Weather * Weather
+conditinos * Note on Map * General * Point of Interest
+
+I think we should keep the NA subtypes and code them as
+``Unclassified''. This would mean that we keep all the information on
+reported events, which we could use in the future. Right now, we could
+find patterns or gaps in the reporting system, and maintains
+transparency about data limitations. NAs could, afterall, be due to
+incomplete reports from users in a hurry, ambiguous that don't fit
+neatly into existing categories, or technical issues in data processing.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ waze\_data\_df[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].fillna(}\StringTok{\textquotesingle{}Unclassified\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get unique combinations of type and subtype}
+\NormalTok{unique\_combinations }\OperatorTok{=}\NormalTok{ waze\_data\_df[[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{]].drop\_duplicates()}
+
+\CommentTok{\# Create the crosswalk DataFrame}
+\NormalTok{crosswalk\_df }\OperatorTok{=}\NormalTok{ pd.DataFrame(\{}
+    \StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{: unique\_combinations[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{],}
+    \StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{: unique\_combinations[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{].fillna(}\StringTok{\textquotesingle{}Unclassified\textquotesingle{}}\NormalTok{),}
+    \StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{: }\StringTok{\textquotesingle{}\textquotesingle{}}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ clean\_name(name):}
+    \CommentTok{"""Cleans and formats a string by replacing underscores with spaces and capitalizing each word."""}
+    \ControlFlowTok{return} \StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{.join(word.capitalize() }\ControlFlowTok{for}\NormalTok{ word }\KeywordTok{in}\NormalTok{ name.replace(}\StringTok{\textquotesingle{}\_\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{).split())}
+
+\KeywordTok{def}\NormalTok{ create\_user\_friendly\_label(row):}
+    \CommentTok{"""Create a user{-}friendly label for the last column."""}
+\NormalTok{    label\_parts }\OperatorTok{=}\NormalTok{ [row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{]]}
+    \ControlFlowTok{if}\NormalTok{ row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{!=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}\NormalTok{:}
+\NormalTok{        label\_parts.append(row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{])}
+    \ControlFlowTok{if}\NormalTok{ row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{!=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}\NormalTok{:}
+\NormalTok{        label\_parts.append(row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{])}
+    \ControlFlowTok{return} \StringTok{\textquotesingle{} {-} \textquotesingle{}}\NormalTok{.join(label\_parts)}
+
+\KeywordTok{def}\NormalTok{ map\_to\_hierarchy(row): }
+    \CommentTok{\# Extract original fields}
+\NormalTok{    original\_type }\OperatorTok{=}\NormalTok{ row[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{]}
+\NormalTok{    original\_subtype }\OperatorTok{=}\NormalTok{ row[}\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{]}
+    
+    \CommentTok{\# Initialize new fields}
+\NormalTok{    row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}\textquotesingle{}}
+\NormalTok{    row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}\textquotesingle{}}
+\NormalTok{    row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}\textquotesingle{}}
+    
+    \CommentTok{\# Map types and subtypes to the hierarchy}
+    \ControlFlowTok{if} \StringTok{\textquotesingle{}JAM\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_type:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Jam\textquotesingle{}}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Traffic\textquotesingle{}}
+        \ControlFlowTok{if} \StringTok{\textquotesingle{}STAND\_STILL\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Stand Still\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}HEAVY\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Heavy\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}MODERATE\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Moderate\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}LIGHT\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Light\textquotesingle{}}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+    \ControlFlowTok{elif} \StringTok{\textquotesingle{}ROAD\_CLOSED\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_type:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Road Closed\textquotesingle{}}
+        \ControlFlowTok{if} \StringTok{\textquotesingle{}CONSTRUCTION\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Construction\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}EVENT\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Event\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}HAZARD\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Hazard\textquotesingle{}}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+    \ControlFlowTok{elif} \StringTok{\textquotesingle{}ACCIDENT\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_type:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Accident\textquotesingle{}}
+        \ControlFlowTok{if} \StringTok{\textquotesingle{}MAJOR\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Major\textquotesingle{}}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}MINOR\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Minor\textquotesingle{}}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Reported\textquotesingle{}}
+    \ControlFlowTok{elif} \StringTok{\textquotesingle{}HAZARD\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_type:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Hazard\textquotesingle{}}
+        \ControlFlowTok{if} \StringTok{\textquotesingle{}ON\_ROAD\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}On Road\textquotesingle{}}
+            \ControlFlowTok{if}\NormalTok{ original\_subtype }\OperatorTok{==} \StringTok{\textquotesingle{}HAZARD\_ON\_ROAD\textquotesingle{}}\NormalTok{:}
+\NormalTok{                row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+            \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{                row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ clean\_name(original\_subtype.replace(}\StringTok{\textquotesingle{}HAZARD\_ON\_ROAD\_\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{))}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}ON\_SHOULDER\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}On Shoulder\textquotesingle{}}
+            \ControlFlowTok{if}\NormalTok{ original\_subtype }\OperatorTok{==} \StringTok{\textquotesingle{}HAZARD\_ON\_SHOULDER\textquotesingle{}}\NormalTok{:}
+\NormalTok{                row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+            \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{                row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ clean\_name(original\_subtype.replace(}\StringTok{\textquotesingle{}HAZARD\_ON\_SHOULDER\_\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{))}
+        \ControlFlowTok{elif} \StringTok{\textquotesingle{}WEATHER\textquotesingle{}} \KeywordTok{in}\NormalTok{ original\_subtype:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Weather\textquotesingle{}}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ clean\_name(original\_subtype.replace(}\StringTok{\textquotesingle{}HAZARD\_WEATHER\_\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{))}
+        \ControlFlowTok{else}\NormalTok{:}
+\NormalTok{            row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+
+    \CommentTok{\# Fallback for unclassified rows}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{]:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ clean\_name(original\_type)}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{]:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{]:}
+\NormalTok{        row[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{=} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}
+
+    \CommentTok{\# Create user{-}friendly label}
+\NormalTok{    row[}\StringTok{\textquotesingle{}user\_friendly\_label\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ create\_user\_friendly\_label(row)}
+    \ControlFlowTok{return}\NormalTok{ row}
+
+\CommentTok{\# Apply the mapping function to each row}
+\NormalTok{crosswalk\_df }\OperatorTok{=}\NormalTok{ crosswalk\_df.}\BuiltInTok{apply}\NormalTok{(map\_to\_hierarchy, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Rearrange columns: keep original type/subtype, then new columns, then the user{-}friendly label}
+\NormalTok{columns\_order }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{, }
+                 \StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}user\_friendly\_label\textquotesingle{}}\NormalTok{]}
+\NormalTok{crosswalk\_df }\OperatorTok{=}\NormalTok{ crosswalk\_df[columns\_order]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sort the DataFrame alphabetically by the user{-}friendly label}
+\NormalTok{crosswalk\_df }\OperatorTok{=}\NormalTok{ crosswalk\_df.sort\_values([}\StringTok{\textquotesingle{}user\_friendly\_label\textquotesingle{}}\NormalTok{])}
+
+\CommentTok{\# Display the final DataFrame}
+\BuiltInTok{print}\NormalTok{(crosswalk\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+               type                             subtype updated_type  \
+122        ACCIDENT                      ACCIDENT_MAJOR     Accident   
+131        ACCIDENT                      ACCIDENT_MINOR     Accident   
+1          ACCIDENT                        Unclassified     Accident   
+26           HAZARD                        Unclassified       Hazard   
+21447        HAZARD          HAZARD_ON_SHOULDER_ANIMALS       Hazard   
+190          HAZARD          HAZARD_ON_ROAD_CAR_STOPPED       Hazard   
+485          HAZARD      HAZARD_ON_SHOULDER_CAR_STOPPED       Hazard   
+240          HAZARD         HAZARD_ON_ROAD_CONSTRUCTION       Hazard   
+276          HAZARD    HAZARD_ON_ROAD_EMERGENCY_VEHICLE       Hazard   
+857          HAZARD                HAZARD_WEATHER_FLOOD       Hazard   
+5557         HAZARD                  HAZARD_WEATHER_FOG       Hazard   
+229005       HAZARD                 HAZARD_WEATHER_HAIL       Hazard   
+854          HAZARD                      HAZARD_WEATHER       Hazard   
+44216        HAZARD           HAZARD_WEATHER_HEAVY_SNOW       Hazard   
+302          HAZARD                  HAZARD_ON_ROAD_ICE       Hazard   
+1905         HAZARD          HAZARD_ON_ROAD_LANE_CLOSED       Hazard   
+21940        HAZARD     HAZARD_ON_SHOULDER_MISSING_SIGN       Hazard   
+303          HAZARD               HAZARD_ON_ROAD_OBJECT       Hazard   
+148          HAZARD                      HAZARD_ON_ROAD       Hazard   
+483          HAZARD                  HAZARD_ON_SHOULDER       Hazard   
+355          HAZARD             HAZARD_ON_ROAD_POT_HOLE       Hazard   
+21443        HAZARD            HAZARD_ON_ROAD_ROAD_KILL       Hazard   
+478          HAZARD  HAZARD_ON_ROAD_TRAFFIC_LIGHT_FAULT       Hazard   
+858             JAM                   JAM_HEAVY_TRAFFIC          Jam   
+38546           JAM                   JAM_LIGHT_TRAFFIC          Jam   
+1122            JAM                JAM_MODERATE_TRAFFIC          Jam   
+1184            JAM             JAM_STAND_STILL_TRAFFIC          Jam   
+0               JAM                        Unclassified          Jam   
+2       ROAD_CLOSED                        Unclassified  Road Closed   
+7331    ROAD_CLOSED            ROAD_CLOSED_CONSTRUCTION  Road Closed   
+1335    ROAD_CLOSED                   ROAD_CLOSED_EVENT  Road Closed   
+54556   ROAD_CLOSED                  ROAD_CLOSED_HAZARD  Road Closed   
+
+       updated_subtype   updated_subsubtype  \
+122              Major         Unclassified   
+131              Minor         Unclassified   
+1             Reported         Unclassified   
+26        Unclassified         Unclassified   
+21447      On Shoulder              Animals   
+190            On Road          Car Stopped   
+485        On Shoulder          Car Stopped   
+240            On Road         Construction   
+276            On Road    Emergency Vehicle   
+857            Weather                Flood   
+5557           Weather                  Fog   
+229005         Weather                 Hail   
+854            Weather       Hazard Weather   
+44216          Weather           Heavy Snow   
+302            On Road                  Ice   
+1905           On Road          Lane Closed   
+21940      On Shoulder         Missing Sign   
+303            On Road               Object   
+148            On Road         Unclassified   
+483        On Shoulder         Unclassified   
+355            On Road             Pot Hole   
+21443          On Road            Road Kill   
+478            On Road  Traffic Light Fault   
+858            Traffic                Heavy   
+38546          Traffic                Light   
+1122           Traffic             Moderate   
+1184           Traffic          Stand Still   
+0              Traffic         Unclassified   
+2         Unclassified         Unclassified   
+7331      Construction         Unclassified   
+1335             Event         Unclassified   
+54556           Hazard         Unclassified   
+
+                           user_friendly_label  
+122                           Accident - Major  
+131                           Accident - Minor  
+1                          Accident - Reported  
+26                                      Hazard  
+21447           Hazard - Animals - On Shoulder  
+190             Hazard - Car Stopped - On Road  
+485         Hazard - Car Stopped - On Shoulder  
+240            Hazard - Construction - On Road  
+276       Hazard - Emergency Vehicle - On Road  
+857                   Hazard - Flood - Weather  
+5557                    Hazard - Fog - Weather  
+229005                 Hazard - Hail - Weather  
+854          Hazard - Hazard Weather - Weather  
+44216            Hazard - Heavy Snow - Weather  
+302                     Hazard - Ice - On Road  
+1905            Hazard - Lane Closed - On Road  
+21940      Hazard - Missing Sign - On Shoulder  
+303                  Hazard - Object - On Road  
+148                           Hazard - On Road  
+483                       Hazard - On Shoulder  
+355                Hazard - Pot Hole - On Road  
+21443             Hazard - Road Kill - On Road  
+478     Hazard - Traffic Light Fault - On Road  
+858                      Jam - Heavy - Traffic  
+38546                    Jam - Light - Traffic  
+1122                  Jam - Moderate - Traffic  
+1184               Jam - Stand Still - Traffic  
+0                                Jam - Traffic  
+2                                  Road Closed  
+7331                Road Closed - Construction  
+1335                       Road Closed - Event  
+54556                     Road Closed - Hazard  
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Merge the crosswalk with the original data}
+\NormalTok{merged\_df }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}merged\_df.csv\textquotesingle{}}
+\NormalTok{merged\_df }\OperatorTok{=}\NormalTok{ waze\_data\_df.merge(crosswalk\_df, on}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{], how}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Count rows for Accident {-} Unclassified}
+\NormalTok{accident\_unclassified\_count }\OperatorTok{=}\NormalTok{ merged\_df[(merged\_df[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{==} \StringTok{\textquotesingle{}Accident\textquotesingle{}}\NormalTok{) }\OperatorTok{\&} 
+\NormalTok{                                        (merged\_df[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{==} \StringTok{\textquotesingle{}Unclassified\textquotesingle{}}\NormalTok{)].shape[}\DecValTok{0}\NormalTok{]}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Number of rows for Accident {-} Unclassified: }\SpecialCharTok{\{}\NormalTok{accident\_unclassified\_count}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Number of rows for Accident - Unclassified: 0
+\end{verbatim}
+
+There are zero rows for which accident is unclassified.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check if all type and subtype combinations in the merged dataset exist in the crosswalk}
+\NormalTok{merged\_combinations }\OperatorTok{=}\NormalTok{ merged\_df[[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{]].drop\_duplicates()}
+\NormalTok{crosswalk\_combinations }\OperatorTok{=}\NormalTok{ crosswalk\_df[[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{]]}
+
+\NormalTok{are\_equal }\OperatorTok{=}\NormalTok{ merged\_combinations.equals(crosswalk\_combinations)}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Crosswalk and merged dataset have the same type and subtype combinations: }\SpecialCharTok{\{}\NormalTok{are\_equal}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\ControlFlowTok{if} \KeywordTok{not}\NormalTok{ are\_equal:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Differences:"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(merged\_combinations[}\OperatorTok{\textasciitilde{}}\NormalTok{merged\_combinations.isin(crosswalk\_combinations)].dropna())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Crosswalk and merged dataset have the same type and subtype combinations: False
+Differences:
+Empty DataFrame
+Columns: [type, subtype]
+Index: []
+\end{verbatim}
+
+\section*{App \#1: Top Location by Alert Type Dashboard (30
+points)}\label{app-1-top-location-by-alert-type-dashboard-30-points}
+\addcontentsline{toc}{section}{App \#1: Top Location by Alert Type
+Dashboard (30 points)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  ChatGPT's response
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ re}
+
+\NormalTok{pattern }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}POINT\textbackslash{}(({-}?\textbackslash{}d+\textbackslash{}.\textbackslash{}d+)\textbackslash{}s({-}?\textbackslash{}d+\textbackslash{}.\textbackslash{}d+)\textbackslash{})\textquotesingle{}}
+
+\CommentTok{\# Extract latitude and longitude using the updated regex}
+\NormalTok{waze\_data\_df[[}\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{]] }\OperatorTok{=}\NormalTok{ waze\_data\_df[}\StringTok{\textquotesingle{}geo\textquotesingle{}}\NormalTok{].}\BuiltInTok{str}\NormalTok{.extract(pattern)}
+
+\CommentTok{\# Convert the extracted values to float}
+\NormalTok{waze\_data\_df[[}\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{]] }\OperatorTok{=}\NormalTok{ waze\_data\_df[[}\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{]].astype(}\BuiltInTok{float}\NormalTok{)}
+
+\CommentTok{\# Display the updated DataFrame with latitude and longitude}
+\BuiltInTok{print}\NormalTok{(waze\_data\_df[[}\StringTok{\textquotesingle{}geo\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                                geo   latitude  longitude
+0       POINT(-87.676685 41.929692)  41.929692 -87.676685
+1       POINT(-87.624816 41.753358)  41.753358 -87.624816
+2       POINT(-87.614122 41.889821)  41.889821 -87.614122
+3       POINT(-87.680139 41.939093)  41.939093 -87.680139
+4        POINT(-87.735235 41.91658)  41.916580 -87.735235
+...                             ...        ...        ...
+778089  POINT(-87.615862 41.887432)  41.887432 -87.615862
+778090  POINT(-87.615882 41.887442)  41.887442 -87.615882
+778091  POINT(-87.645584 41.884419)  41.884419 -87.645584
+778092  POINT(-87.598843 41.692532)  41.692532 -87.598843
+778093  POINT(-87.598843 41.692532)  41.692532 -87.598843
+
+[778094 rows x 3 columns]
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bin latitude and longitude into bins with step size 0.01}
+\NormalTok{waze\_data\_df[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (waze\_data\_df[}\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+\NormalTok{waze\_data\_df[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (waze\_data\_df[}\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Count the number of observations for each binned latitude{-}longitude combination}
+\NormalTok{binned\_counts }\OperatorTok{=}\NormalTok{ waze\_data\_df.groupby([}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{]).size().reset\_index(name}\OperatorTok{=}\StringTok{\textquotesingle{}count\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Identify the binned latitude{-}longitude combination with the greatest number of observations}
+\NormalTok{max\_binned }\OperatorTok{=}\NormalTok{ binned\_counts.loc[binned\_counts[}\StringTok{\textquotesingle{}count\textquotesingle{}}\NormalTok{].idxmax()]}
+
+\NormalTok{result }\OperatorTok{=} \SpecialStringTok{f"(}\SpecialCharTok{\{}\NormalTok{max\_binned[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{]}\SpecialCharTok{:.2f\}}\SpecialStringTok{, }\SpecialCharTok{\{}\NormalTok{max\_binned[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{]}\SpecialCharTok{:.2f\}}\SpecialStringTok{)"}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"The binned latitude{-}longitude combination with the greatest number of observations is: }\SpecialCharTok{\{}\NormalTok{result}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Number of observations: }\SpecialCharTok{\{}\NormalTok{max\_binned[}\StringTok{\textquotesingle{}count\textquotesingle{}}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+The binned latitude-longitude combination with the greatest number of observations is: (41.96, -87.75)
+Number of observations: 26537.0
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ os }\ImportTok{as}\NormalTok{ os}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{chosen\_type }\OperatorTok{=} \StringTok{\textquotesingle{}Jam\textquotesingle{}}
+\NormalTok{chosen\_subtype }\OperatorTok{=} \StringTok{\textquotesingle{}Traffic\textquotesingle{}}
+
+\CommentTok{\# Merge waze\_data\_df with crosswalk\_df to get updated types and subtypes}
+\NormalTok{merged\_df }\OperatorTok{=}\NormalTok{ waze\_data\_df.merge(}
+\NormalTok{    crosswalk\_df, on}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}type\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}subtype\textquotesingle{}}\NormalTok{], how}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Filter data for chosen updated type and subtype}
+\NormalTok{filtered\_data }\OperatorTok{=}\NormalTok{ merged\_df[}
+\NormalTok{    (merged\_df[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{==}\NormalTok{ chosen\_type) }\OperatorTok{\&}
+\NormalTok{    (merged\_df[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{==}\NormalTok{ chosen\_subtype)}
+\NormalTok{]}
+
+\CommentTok{\# Bin latitude and longitude into bins with step size 0.01}
+\NormalTok{filtered\_data[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (filtered\_data[}\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+\NormalTok{filtered\_data[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (filtered\_data[}\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+
+\CommentTok{\# Aggregate the data to count the number of alerts per binned latitude and longitude}
+\NormalTok{aggregated\_data }\OperatorTok{=}\NormalTok{ filtered\_data.groupby(}
+\NormalTok{    [}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{]).size().reset\_index(name}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Sort the aggregated data by alert\_count in descending order}
+\NormalTok{sorted\_data }\OperatorTok{=}\NormalTok{ aggregated\_data.sort\_values(by}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{, ascending}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+
+\CommentTok{\# Ensure the directory exists}
+\NormalTok{output\_dir }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}top\_alerts\_map\textquotesingle{}}
+\NormalTok{os.makedirs(output\_dir, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\CommentTok{\# Save the resulting DataFrame as \textquotesingle{}top\_alerts\_map.csv\textquotesingle{} in the specified folder}
+\NormalTok{output\_path }\OperatorTok{=}\NormalTok{ os.path.join(output\_dir, }\StringTok{\textquotesingle{}top\_alerts\_map.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{sorted\_data.to\_csv(output\_path, index}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+
+\CommentTok{\# Load the saved DataFrame to count the number of rows}
+\NormalTok{saved\_data }\OperatorTok{=}\NormalTok{ pd.read\_csv(output\_path)}
+
+\CommentTok{\# Count the number of rows in the saved DataFrame}
+\NormalTok{num\_rows }\OperatorTok{=}\NormalTok{ saved\_data.shape[}\DecValTok{0}\NormalTok{]}
+
+\CommentTok{\# Level of aggregation}
+\NormalTok{level\_of\_aggregation }\OperatorTok{=} \StringTok{"Binned latitude and longitude for chosen updated type and subtype"}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Level of aggregation: }\SpecialCharTok{\{}\NormalTok{level\_of\_aggregation}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Number of rows in the DataFrame: }\SpecialCharTok{\{}\NormalTok{num\_rows}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(saved\_data)}
+
+\CommentTok{\# Additional information}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{Chosen type: }\SpecialCharTok{\{}\NormalTok{chosen\_type}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Chosen subtype: }\SpecialCharTok{\{}\NormalTok{chosen\_subtype}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}
+    \SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{Total alerts for }\SpecialCharTok{\{}\NormalTok{chosen\_type}\SpecialCharTok{\}}\SpecialStringTok{ {-} }\SpecialCharTok{\{}\NormalTok{chosen\_subtype}\SpecialCharTok{\}}\SpecialStringTok{: }\SpecialCharTok{\{}\NormalTok{filtered\_data}\SpecialCharTok{.}\NormalTok{shape[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Number of unique latitude{-}longitude bins: }\SpecialCharTok{\{}\NormalTok{aggregated\_data}\SpecialCharTok{.}\NormalTok{shape[}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Level of aggregation: Binned latitude and longitude for chosen updated type and subtype
+Number of rows in the DataFrame: 676
+     binned_latitude  binned_longitude  alert_count
+0              41.89            -87.66        10866
+1              41.87            -87.65         9034
+2              41.88            -87.65         7950
+3              41.90            -87.67         7072
+4              41.96            -87.75         6750
+..               ...               ...          ...
+671            41.96            -87.92            1
+672            41.96            -87.93            1
+673            41.67            -87.66            1
+674            42.00            -87.91            1
+675            41.96            -87.80            1
+
+[676 rows x 3 columns]
+
+Chosen type: Jam
+Chosen subtype: Traffic
+
+Total alerts for Jam - Traffic: 372485
+Number of unique latitude-longitude bins: 676
+\end{verbatim}
+
+\begin{verbatim}
+C:\Users\clari\AppData\Local\Temp\ipykernel_18808\1671116365.py:15: SettingWithCopyWarning:
+
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+C:\Users\clari\AppData\Local\Temp\ipykernel_18808\1671116365.py:16: SettingWithCopyWarning:
+
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+\end{verbatim}
+
+We observe 647 unique long-lat bins. We are aggregating by Jam and
+Traffic.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filter for heavy traffic jams: type = \textquotesingle{}Jam\textquotesingle{}, subtype = \textquotesingle{}Traffic\textquotesingle{}, and subsubtype = \textquotesingle{}Heavy\textquotesingle{}}
+\NormalTok{jam\_heavy }\OperatorTok{=}\NormalTok{ merged\_df[}
+\NormalTok{    (merged\_df[}\StringTok{\textquotesingle{}updated\_type\textquotesingle{}}\NormalTok{] }\OperatorTok{==} \StringTok{\textquotesingle{}Jam\textquotesingle{}}\NormalTok{) }\OperatorTok{\&}
+\NormalTok{    (merged\_df[}\StringTok{\textquotesingle{}updated\_subtype\textquotesingle{}}\NormalTok{] }\OperatorTok{==} \StringTok{\textquotesingle{}Traffic\textquotesingle{}}\NormalTok{) }\OperatorTok{\&}
+\NormalTok{    (merged\_df[}\StringTok{\textquotesingle{}updated\_subsubtype\textquotesingle{}}\NormalTok{] }\OperatorTok{==} \StringTok{\textquotesingle{}Heavy\textquotesingle{}}\NormalTok{)}
+\NormalTok{]}
+
+\CommentTok{\# Aggregate data by latitude{-}longitude bins}
+\NormalTok{aggregated }\OperatorTok{=}\NormalTok{ jam\_heavy.groupby(}
+\NormalTok{    [}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{]).size().reset\_index(name}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Filter the top 10 locations with the highest alert count}
+\NormalTok{top\_10 }\OperatorTok{=}\NormalTok{ aggregated.nlargest(}\DecValTok{10}\NormalTok{, }\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create the chart with the top 10 locations}
+\CommentTok{\# Calculate min and max for latitude and longitude to adjust axis range}
+\NormalTok{min\_lat, max\_lat }\OperatorTok{=}\NormalTok{ top\_10[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{].}\BuiltInTok{min}\NormalTok{(}
+\NormalTok{), top\_10[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{].}\BuiltInTok{max}\NormalTok{()}
+\NormalTok{min\_lon, max\_lon }\OperatorTok{=}\NormalTok{ top\_10[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{].}\BuiltInTok{min}\NormalTok{(}
+\NormalTok{), top\_10[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{].}\BuiltInTok{max}\NormalTok{()}
+
+\CommentTok{\# Add padding to the range for better visibility}
+\NormalTok{lat\_padding }\OperatorTok{=}\NormalTok{ (max\_lat }\OperatorTok{{-}}\NormalTok{ min\_lat) }\OperatorTok{*} \FloatTok{0.1}
+\NormalTok{lon\_padding }\OperatorTok{=}\NormalTok{ (max\_lon }\OperatorTok{{-}}\NormalTok{ min\_lon) }\OperatorTok{*} \FloatTok{0.1}
+
+\NormalTok{top\_10\_chart }\OperatorTok{=}\NormalTok{ alt.Chart(top\_10).mark\_circle(color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{).encode(}
+\NormalTok{    x}\OperatorTok{=}\NormalTok{alt.X(}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Longitude\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+\NormalTok{        domain}\OperatorTok{=}\NormalTok{[min\_lon }\OperatorTok{{-}}\NormalTok{ lon\_padding, max\_lon }\OperatorTok{+}\NormalTok{ lon\_padding])),}
+\NormalTok{    y}\OperatorTok{=}\NormalTok{alt.Y(}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Latitude\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+\NormalTok{        domain}\OperatorTok{=}\NormalTok{[min\_lat }\OperatorTok{{-}}\NormalTok{ lat\_padding, max\_lat }\OperatorTok{+}\NormalTok{ lat\_padding])),}
+\NormalTok{    size}\OperatorTok{=}\NormalTok{alt.Size(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+        \BuiltInTok{range}\OperatorTok{=}\NormalTok{[}\DecValTok{50}\NormalTok{, }\DecValTok{750}\NormalTok{]), title}\OperatorTok{=}\StringTok{\textquotesingle{}Alert Count\textquotesingle{}}\NormalTok{),}
+\NormalTok{    tooltip}\OperatorTok{=}\NormalTok{[}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Latitude\textquotesingle{}}\NormalTok{),}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Longitude\textquotesingle{}}\NormalTok{),}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Alert Count\textquotesingle{}}\NormalTok{)}
+\NormalTok{    ]}
+\NormalTok{).properties(}
+\NormalTok{    title}\OperatorTok{=}\StringTok{\textquotesingle{}Top 10 Locations for Jam {-} Heavy Traffic Alerts\textquotesingle{}}\NormalTok{,}
+\NormalTok{    width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{    height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{).configure\_axis(}
+\NormalTok{    grid}\OperatorTok{=}\VariableTok{True}\NormalTok{,  }\CommentTok{\# Disable grid lines}
+\NormalTok{    labelFontSize}\OperatorTok{=}\DecValTok{12}\NormalTok{,  }\CommentTok{\# Axis label font size}
+\NormalTok{    titleFontSize}\OperatorTok{=}\DecValTok{14}\NormalTok{,  }\CommentTok{\# Axis title font size}
+\NormalTok{    titleFontWeight}\OperatorTok{=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{,  }\CommentTok{\# Bold axis titles}
+\NormalTok{    labelPadding}\OperatorTok{=}\DecValTok{10}  \CommentTok{\# Space between axis labels and the axis}
+\NormalTok{).configure\_title(}
+\NormalTok{    fontSize}\OperatorTok{=}\DecValTok{16}\NormalTok{,  }\CommentTok{\# Font size for chart title}
+\NormalTok{    fontWeight}\OperatorTok{=}\StringTok{\textquotesingle{}bold\textquotesingle{}}  \CommentTok{\# Bold chart title}
+\NormalTok{).configure\_legend(}
+\NormalTok{    titleFontSize}\OperatorTok{=}\DecValTok{14}\NormalTok{,  }\CommentTok{\# Font size for legend title}
+\NormalTok{    labelFontSize}\OperatorTok{=}\DecValTok{12}\NormalTok{,  }\CommentTok{\# Font size for legend labels}
+\NormalTok{    symbolSize}\OperatorTok{=}\DecValTok{100}  \CommentTok{\# Adjust size of the legend symbols}
+\NormalTok{)}
+
+\CommentTok{\# Display the chart}
+\NormalTok{top\_10\_chart.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+alt.Chart(...)
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Specify the directory and file path}
+\NormalTok{directory }\OperatorTok{=} \VerbatimStringTok{r"C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6"}
+\NormalTok{file\_path }\OperatorTok{=}\NormalTok{ os.path.join(directory, }\StringTok{"chicago{-}boundaries.geojson"}\NormalTok{)}
+
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(file\_path) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{    chicago\_geojson }\OperatorTok{=}\NormalTok{ json.load(f)}
+
+\NormalTok{geo\_data }\OperatorTok{=}\NormalTok{ alt.Data(values}\OperatorTok{=}\NormalTok{chicago\_geojson[}\StringTok{"features"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ requests}
+\ImportTok{import}\NormalTok{ json}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# URL of the Chicago neighborhood boundaries GeoJSON}
+\NormalTok{url }\OperatorTok{=} \StringTok{"https://data.cityofchicago.org/api/geospatial/bbvz{-}uum9?method=export\&format=GeoJSON"}
+
+\CommentTok{\# Download the file}
+\NormalTok{response }\OperatorTok{=}\NormalTok{ requests.get(url)}
+\NormalTok{chicago\_geojson }\OperatorTok{=}\NormalTok{ response.json()}
+
+\CommentTok{\# Create the directory if it doesn\textquotesingle{}t exist}
+\NormalTok{os.makedirs(directory, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\CommentTok{\# Save the file locally}
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(file\_path, }\StringTok{"w"}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{    json.dump(chicago\_geojson, f)}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"File saved to: }\SpecialCharTok{\{}\NormalTok{file\_path}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\NormalTok{geo\_data }\OperatorTok{=}\NormalTok{ alt.Data(values}\OperatorTok{=}\NormalTok{chicago\_geojson[}\StringTok{"features"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+File saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\chicago-boundaries.geojson
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if} \StringTok{"features"} \KeywordTok{in}\NormalTok{ chicago\_geojson }\KeywordTok{and}\NormalTok{ chicago\_geojson[}\StringTok{"features"}\NormalTok{]:}
+\NormalTok{    geo\_data }\OperatorTok{=}\NormalTok{ alt.Data(values}\OperatorTok{=}\NormalTok{chicago\_geojson[}\StringTok{"features"}\NormalTok{])}
+\ControlFlowTok{else}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"GeoJSON \textquotesingle{}features\textquotesingle{} key is missing or empty"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Apply equirectangular projection to map}
+\NormalTok{base }\OperatorTok{=}\NormalTok{ alt.Chart(geo\_data).mark\_geoshape(}
+\NormalTok{    fill}\OperatorTok{=}\StringTok{\textquotesingle{}lightgray\textquotesingle{}}\NormalTok{,}
+\NormalTok{    stroke}\OperatorTok{=}\StringTok{\textquotesingle{}white\textquotesingle{}}
+\NormalTok{).properties(}
+\NormalTok{    width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{    height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{).project(}
+    \BuiltInTok{type}\OperatorTok{=}\StringTok{\textquotesingle{}equirectangular\textquotesingle{}}\NormalTok{,}
+\NormalTok{)}
+
+\CommentTok{\# If the map shows up correctly, continue with the points layer}
+\NormalTok{top\_10\_chart }\OperatorTok{=}\NormalTok{ alt.Chart(top\_10).mark\_circle(color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{).encode(}
+\NormalTok{    x}\OperatorTok{=}\NormalTok{alt.X(}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Longitude\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+\NormalTok{        domain}\OperatorTok{=}\NormalTok{[min\_lon }\OperatorTok{{-}}\NormalTok{ lon\_padding, max\_lon }\OperatorTok{+}\NormalTok{ lon\_padding])),}
+\NormalTok{    y}\OperatorTok{=}\NormalTok{alt.Y(}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Latitude\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+\NormalTok{        domain}\OperatorTok{=}\NormalTok{[min\_lat }\OperatorTok{{-}}\NormalTok{ lat\_padding, max\_lat }\OperatorTok{+}\NormalTok{ lat\_padding])),}
+\NormalTok{    size}\OperatorTok{=}\NormalTok{alt.Size(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}
+        \BuiltInTok{range}\OperatorTok{=}\NormalTok{[}\DecValTok{50}\NormalTok{, }\DecValTok{750}\NormalTok{]), title}\OperatorTok{=}\StringTok{\textquotesingle{}Alert Count\textquotesingle{}}\NormalTok{),}
+\NormalTok{    tooltip}\OperatorTok{=}\NormalTok{[}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Latitude\textquotesingle{}}\NormalTok{),}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Longitude\textquotesingle{}}\NormalTok{),}
+\NormalTok{        alt.Tooltip(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, title}\OperatorTok{=}\StringTok{\textquotesingle{}Alert Count\textquotesingle{}}\NormalTok{)}
+\NormalTok{    ]}
+\NormalTok{)}
+
+\CommentTok{\# Combine the base map and points layer using alt.layer}
+\NormalTok{jam\_chart }\OperatorTok{=}\NormalTok{ alt.layer(base, top\_10\_chart).properties(}
+\NormalTok{    title}\OperatorTok{=}\StringTok{\textquotesingle{}Top 10 Locations for Jam {-} Heavy Traffic Alerts\textquotesingle{}}\NormalTok{,}
+\NormalTok{    width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{    height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{)}
+
+\CommentTok{\# Apply configurations to the combined chart (outside of alt.layer)}
+\NormalTok{jam\_chart }\OperatorTok{=}\NormalTok{ jam\_chart.configure\_view(}
+\NormalTok{    strokeWidth}\OperatorTok{=}\DecValTok{0}  \CommentTok{\# Remove border around the chart}
+\NormalTok{).configure\_axis(}
+\NormalTok{    grid}\OperatorTok{=}\VariableTok{True}\NormalTok{,  }\CommentTok{\# Add grid lines}
+\NormalTok{    labelFontSize}\OperatorTok{=}\DecValTok{12}\NormalTok{,}
+\NormalTok{    titleFontSize}\OperatorTok{=}\DecValTok{14}\NormalTok{,  }\CommentTok{\# Axis title font size}
+\NormalTok{    titleFontWeight}\OperatorTok{=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{,  }\CommentTok{\# Bold axis titles}
+\NormalTok{    labelPadding}\OperatorTok{=}\DecValTok{10}  \CommentTok{\# Padding for axis labels}
+\NormalTok{).configure\_title(}
+\NormalTok{    fontSize}\OperatorTok{=}\DecValTok{16}\NormalTok{,  }\CommentTok{\# Font size for chart title}
+\NormalTok{    fontWeight}\OperatorTok{=}\StringTok{\textquotesingle{}bold\textquotesingle{}}  \CommentTok{\# Bold chart title}
+\NormalTok{).configure\_legend(}
+\NormalTok{    titleFontSize}\OperatorTok{=}\DecValTok{14}\NormalTok{,  }\CommentTok{\# Font size for legend title}
+\NormalTok{    labelFontSize}\OperatorTok{=}\DecValTok{12}\NormalTok{,  }\CommentTok{\# Font size for legend labels}
+\NormalTok{    symbolSize}\OperatorTok{=}\DecValTok{100}  \CommentTok{\# Adjust size of the legend symbols}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Save the chart as an interactive HTML file}
+\NormalTok{jam\_chart.save(}\StringTok{\textquotesingle{}jam\_chart.html\textquotesingle{}}\NormalTok{)}
+\NormalTok{jam\_chart.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+alt.LayerChart(...)
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Total number of type-subtype combinations: 11
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{dropdown.png}
+
+}
+
+\caption{Dropdown menu}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{heavy_traffic.png}
+
+}
+
+\caption{Jam- Heavy Traffic}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Road closures due to an event seem to be most common at the North-West
+  side of Chicago. Unfortunately, I don't have the long-lat because it
+  won't load properly if I add it in, so I can't give the location.
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{app1c.png}
+
+}
+
+\caption{Road CLosure- Events}
+
+\end{figure}%
+
+d.Where can we expect there to be the most number of major traffic
+accidents?
+
+We can expect most of the major traffic accidents to be around the
+upper- middle partof Chicago. Unfortunately, I don't have the long-lat
+because it won't load properly if I add it in, so I can't give the
+location.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{app1d.png}
+
+}
+
+\caption{Major Traffic Accidents}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Can you suggest adding another column to the dashboard to enhance our
+  analysis?
+\end{enumerate}
+
+The dashboard could benefit from more information about the time of day
+in which these accidents occur, along with more specific information as
+to where they occur. Currently, our dashboard displays this data in
+coordinates relative to a city map, which is helpful if you're already
+familiar with the area. For an outsider, more details about specific
+streets and highways would be quite helpful.
+
+\section*{App \#2: Top Location by Alert Type and Hour Dashboard (20
+points)}\label{app-2-top-location-by-alert-type-and-hour-dashboard-20-points}
+\addcontentsline{toc}{section}{App \#2: Top Location by Alert Type and
+Hour Dashboard (20 points)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Yes, I think it's a good idea, especially if we aim to analyze alerts
+  by hour of the day (as suggested in the query), collapsing the data by
+  ts into hourly bins makes sense. This would allow you to identify
+  patterns or trends in alerts based on the time of day. Reducing Data
+  Size: If the dataset is very large, collapsing by ts can reduce its
+  size, especially if you're aggregating alerts into hourly or daily
+  bins. Time-Based Analysis: Collapsing by ts enables temporal analysis,
+  such as understanding peak traffic hours, accident-prone times, or
+  hazard trends.
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{merged\_df\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}merged\_df.csv\textquotesingle{}}
+\NormalTok{merged\_df }\OperatorTok{=}\NormalTok{ pd.read\_csv(merged\_df\_path)}
+
+\CommentTok{\# Check if \textquotesingle{}geo\textquotesingle{} column exists}
+\ControlFlowTok{if} \StringTok{\textquotesingle{}geo\textquotesingle{}} \KeywordTok{in}\NormalTok{ merged\_df.columns:}
+    \CommentTok{\# Extract latitude and longitude from the \textquotesingle{}geo\textquotesingle{} column using regex}
+\NormalTok{    pattern }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}POINT\textbackslash{}(({-}?\textbackslash{}d+\textbackslash{}.\textbackslash{}d+)\textbackslash{}s({-}?\textbackslash{}d+\textbackslash{}.\textbackslash{}d+)\textbackslash{})\textquotesingle{}}
+\NormalTok{    merged\_df[[}\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{]] }\OperatorTok{=}\NormalTok{ merged\_df[}\StringTok{\textquotesingle{}geo\textquotesingle{}}\NormalTok{].}\BuiltInTok{str}\NormalTok{.extract(}
+\NormalTok{        pattern).astype(}\BuiltInTok{float}\NormalTok{)}
+\ControlFlowTok{else}\NormalTok{:}
+    \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"The dataset does not contain a \textquotesingle{}geo\textquotesingle{} column."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bin latitude and longitude into bins with step size 0.01}
+\NormalTok{merged\_df[}\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (merged\_df[}\StringTok{\textquotesingle{}latitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+\NormalTok{merged\_df[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ (merged\_df[}\StringTok{\textquotesingle{}longitude\textquotesingle{}}\NormalTok{] }\OperatorTok{//} \FloatTok{0.01}\NormalTok{) }\OperatorTok{*} \FloatTok{0.01}
+
+\CommentTok{\# Check how many rows the dataset has}
+\NormalTok{row\_count }\OperatorTok{=}\NormalTok{ merged\_df.shape[}\DecValTok{0}\NormalTok{]}
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"The dataset contains }\SpecialCharTok{\{}\NormalTok{row\_count}\SpecialCharTok{\}}\SpecialStringTok{ rows."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+The dataset contains 778094 rows.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ merged\_df[}\StringTok{\textquotesingle{}ts\textquotesingle{}}\NormalTok{].dtype }\OperatorTok{!=} \StringTok{\textquotesingle{}datetime64[ns]\textquotesingle{}}\NormalTok{:}
+    \CommentTok{\# Convert \textquotesingle{}ts\textquotesingle{} to datetime format}
+\NormalTok{    merged\_df[}\StringTok{\textquotesingle{}ts\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ pd.to\_datetime(}
+\NormalTok{        merged\_df[}\StringTok{\textquotesingle{}ts\textquotesingle{}}\NormalTok{].}\BuiltInTok{str}\NormalTok{.replace(}\StringTok{"UTC"}\NormalTok{, }\StringTok{""}\NormalTok{), errors}\OperatorTok{=}\StringTok{\textquotesingle{}coerce\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Extract the hour (floor to the start of the hour) from the \textquotesingle{}ts\textquotesingle{} column}
+\NormalTok{merged\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ merged\_df[}\StringTok{\textquotesingle{}ts\textquotesingle{}}\NormalTok{].dt.floor(}\StringTok{\textquotesingle{}H\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+C:\Users\clari\AppData\Local\Temp\ipykernel_18808\1751780735.py:7: FutureWarning:
+
+'H' is deprecated and will be removed in a future version, please use 'h' instead.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Group and aggregate by hour, binned latitude, and longitude}
+\NormalTok{aggregated\_data }\OperatorTok{=}\NormalTok{ (}
+\NormalTok{    merged\_df.groupby([}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{])}
+\NormalTok{    .size()}
+\NormalTok{    .reset\_index(name}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# Rank and filter top 10 alerts per hour}
+\NormalTok{aggregated\_data[}\StringTok{\textquotesingle{}rank\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ aggregated\_data.groupby(}
+    \StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{)[}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{].rank(ascending}\OperatorTok{=}\VariableTok{False}\NormalTok{, method}\OperatorTok{=}\StringTok{\textquotesingle{}first\textquotesingle{}}\NormalTok{)}
+\NormalTok{top\_10\_per\_hour }\OperatorTok{=}\NormalTok{ aggregated\_data[aggregated\_data[}\StringTok{\textquotesingle{}rank\textquotesingle{}}\NormalTok{] }\OperatorTok{\textless{}=} \DecValTok{10}\NormalTok{].drop(}
+\NormalTok{    columns}\OperatorTok{=}\StringTok{\textquotesingle{}rank\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Save the collapsed dataset}
+\NormalTok{output\_folder }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}top\_alerts\_map\_byhour\textquotesingle{}}
+\NormalTok{os.makedirs(output\_folder, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{output\_path }\OperatorTok{=}\NormalTok{ os.path.join(output\_folder, }\StringTok{\textquotesingle{}top\_alerts\_map\_byhour.csv\textquotesingle{}}\NormalTok{)}
+\NormalTok{top\_10\_per\_hour.to\_csv(output\_path, index}\OperatorTok{=}\VariableTok{False}\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Number of rows in the dataset: }\SpecialCharTok{\{}\BuiltInTok{len}\NormalTok{(top\_10\_per\_hour)}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Number of rows in the dataset: 65826
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ random}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}top\_alerts\_map\_byhour\textbackslash{}top\_alerts\_map\_byhour.csv\textquotesingle{}}
+\NormalTok{top\_alerts\_df }\OperatorTok{=}\NormalTok{ pd.read\_csv(data\_path)}
+
+\CommentTok{\# Remove timezone information from \textquotesingle{}hour\textquotesingle{} column}
+\NormalTok{top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ pd.to\_datetime(}
+\NormalTok{    top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{]).dt.tz\_localize(}\VariableTok{None}\NormalTok{)}
+
+\CommentTok{\# Specify the 3 specific hours you want to focus on}
+\CommentTok{\# Modify this list to the specific hours you want}
+\NormalTok{specific\_hours }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}08:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}12:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}18:00\textquotesingle{}}\NormalTok{]}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Selected specific hours: }\SpecialCharTok{\{}\NormalTok{specific\_hours}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\CommentTok{\# Load GeoJSON data for Chicago boundaries}
+\NormalTok{geojson\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}chicago{-}boundaries.geojson\textquotesingle{}}
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(geojson\_path) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{    chicago\_geojson }\OperatorTok{=}\NormalTok{ json.load(f)}
+\NormalTok{geo\_data }\OperatorTok{=}\NormalTok{ alt.Data(values}\OperatorTok{=}\NormalTok{chicago\_geojson[}\StringTok{"features"}\NormalTok{])}
+
+\CommentTok{\# Initialize an empty list to store charts}
+\NormalTok{jam\_hour\_charts }\OperatorTok{=}\NormalTok{ []}
+
+\ControlFlowTok{for}\NormalTok{ hour }\KeywordTok{in}\NormalTok{ specific\_hours:}
+    \CommentTok{\# Filter data for the specific hour}
+\NormalTok{    hourly\_data }\OperatorTok{=}\NormalTok{ top\_alerts\_df[top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{].dt.strftime(}
+        \StringTok{\textquotesingle{}\%H:\%M\textquotesingle{}}\NormalTok{) }\OperatorTok{==}\NormalTok{ hour]}
+
+    \CommentTok{\# Sort by alert\_count and select the top 10 rows}
+\NormalTok{    hourly\_data\_top\_10 }\OperatorTok{=}\NormalTok{ hourly\_data.sort\_values(}
+\NormalTok{        by}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{, ascending}\OperatorTok{=}\VariableTok{False}\NormalTok{).head(}\DecValTok{10}\NormalTok{)}
+
+    \CommentTok{\# Debugging: Print filtered data}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{Data for hour }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{:"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(hourly\_data\_top\_10)}
+
+    \ControlFlowTok{if}\NormalTok{ hourly\_data\_top\_10.empty:}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"No data available for hour }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{. Skipping..."}\NormalTok{)}
+        \ControlFlowTok{continue}
+
+    \CommentTok{\# Create map layer (base map)}
+\NormalTok{    base\_map }\OperatorTok{=}\NormalTok{ alt.Chart(geo\_data).mark\_geoshape(}
+\NormalTok{        fill}\OperatorTok{=}\StringTok{\textquotesingle{}lightgray\textquotesingle{}}\NormalTok{,}
+\NormalTok{        stroke}\OperatorTok{=}\StringTok{\textquotesingle{}white\textquotesingle{}}
+\NormalTok{    ).properties(}
+\NormalTok{        width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{        height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{    )}
+
+    \CommentTok{\# Add points layer for top locations}
+\NormalTok{    points\_layer }\OperatorTok{=}\NormalTok{ alt.Chart(hourly\_data\_top\_10).mark\_circle().encode(}
+\NormalTok{        longitude}\OperatorTok{=}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{,}
+\NormalTok{        latitude}\OperatorTok{=}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{,}
+\NormalTok{        size}\OperatorTok{=}\NormalTok{alt.Size(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}\BuiltInTok{range}\OperatorTok{=}\NormalTok{[}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{])),}
+\NormalTok{        color}\OperatorTok{=}\NormalTok{alt.value(}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{),}
+\NormalTok{        tooltip}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{]}
+\NormalTok{    )}
+
+    \CommentTok{\# Combine base map and points layer}
+\NormalTok{    jam\_hour\_chart }\OperatorTok{=}\NormalTok{ alt.layer(base\_map, points\_layer).project(}
+        \BuiltInTok{type}\OperatorTok{=}\StringTok{\textquotesingle{}mercator\textquotesingle{}}\NormalTok{,}
+\NormalTok{        scale}\OperatorTok{=}\DecValTok{50000}\NormalTok{,}
+\NormalTok{        center}\OperatorTok{=}\NormalTok{[}\OperatorTok{{-}}\FloatTok{87.65}\NormalTok{, }\FloatTok{41.88}\NormalTok{]  }\CommentTok{\# Approximate center of Chicago}
+\NormalTok{    ).properties(}
+\NormalTok{        title}\OperatorTok{=}\SpecialStringTok{f"Top 10 Locations for Alerts at }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{"}
+\NormalTok{    )}
+
+    \CommentTok{\# Append chart to list of charts}
+\NormalTok{    jam\_hour\_charts.append((jam\_hour\_chart, hour))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Selected specific hours: ['08:00', '12:00', '18:00']
+
+Data for hour 08:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+45090 2024-07-16 08:00:00            41.87            -87.67           19
+32449 2024-05-24 08:00:00            41.96            -87.75           14
+36281 2024-06-09 08:00:00            41.96            -87.75           13
+38431 2024-06-18 08:00:00            41.96            -87.75           13
+31015 2024-05-18 08:00:00            41.96            -87.75           13
+28381 2024-05-07 08:00:00            41.96            -87.75           13
+30539 2024-05-16 08:00:00            41.96            -87.75           13
+33404 2024-05-28 08:00:00            41.96            -87.75           12
+29819 2024-05-13 08:00:00            41.96            -87.75           12
+32929 2024-05-26 08:00:00            41.96            -87.75           12
+
+Data for hour 12:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+52675 2024-08-17 12:00:00            41.88            -87.68           53
+52672 2024-08-17 12:00:00            41.87            -87.68           38
+28661 2024-05-08 12:00:00            41.96            -87.75           29
+32251 2024-05-23 12:00:00            41.96            -87.75           23
+34879 2024-06-03 12:00:00            41.96            -87.75           21
+33920 2024-05-30 12:00:00            41.96            -87.75           20
+31772 2024-05-21 12:00:00            41.96            -87.75           20
+27223 2024-05-02 12:00:00            41.96            -87.75           20
+40150 2024-06-25 12:00:00            41.96            -87.75           20
+35362 2024-06-05 12:00:00            41.96            -87.75           19
+
+Data for hour 18:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+29199 2024-05-10 18:00:00            41.96            -87.75           21
+30872 2024-05-17 18:00:00            41.88            -87.65           20
+35898 2024-06-07 18:00:00            41.88            -87.65           19
+30637 2024-05-16 18:00:00            41.88            -87.65           19
+29438 2024-05-11 18:00:00            41.96            -87.75           19
+32068 2024-05-22 18:00:00            41.88            -87.65           18
+37329 2024-06-13 18:00:00            41.88            -87.65           18
+31595 2024-05-20 18:00:00            41.96            -87.75           18
+28958 2024-05-09 18:00:00            41.96            -87.75           17
+37811 2024-06-15 18:00:00            41.96            -87.75           17
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Save each chart as an HTML file if needed}
+\NormalTok{output\_folder }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textquotesingle{}}
+\NormalTok{os.makedirs(output\_folder, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ i, (chart, hour) }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(jam\_hour\_charts):}
+\NormalTok{    output\_path }\OperatorTok{=}\NormalTok{ os.path.join(}
+\NormalTok{        output\_folder, }\SpecialStringTok{f\textquotesingle{}jam\_hour\_chart\_}\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{.}\NormalTok{replace(}\StringTok{":"}\NormalTok{, }\StringTok{"{-}"}\NormalTok{)}\SpecialCharTok{\}}\SpecialStringTok{.html\textquotesingle{}}\NormalTok{)}
+\NormalTok{    chart.save(output\_path)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Chart saved to: }\SpecialCharTok{\{}\NormalTok{output\_path}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\jam_hour_chart_08-00.html
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\jam_hour_chart_12-00.html
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\jam_hour_chart_18-00.html
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jam\_hour\_chart.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+alt.LayerChart(...)
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ print\_file\_contents(file\_path):}
+    \CommentTok{"""Print contents of a file."""}
+    \ControlFlowTok{try}\NormalTok{:}
+        \ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(file\_path, }\StringTok{\textquotesingle{}r\textquotesingle{}}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{            content }\OperatorTok{=}\NormalTok{ f.read()}
+            \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}python"}\NormalTok{)}
+            \BuiltInTok{print}\NormalTok{(content)}
+            \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}"}\NormalTok{)}
+    \ControlFlowTok{except} \PreprocessorTok{FileNotFoundError}\NormalTok{:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}python"}\NormalTok{)}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Error: File \textquotesingle{}}\SpecialCharTok{\{}\NormalTok{file\_path}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{} not found"}\NormalTok{)}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}"}\NormalTok{)}
+    \ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}python"}\NormalTok{)}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Error reading file: }\SpecialCharTok{\{}\NormalTok{e}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"\textasciigrave{}\textasciigrave{}\textasciigrave{}"}\NormalTok{)}
+
+
+\CommentTok{\# Printing the contents of your app2.py file}
+\NormalTok{print\_file\_contents(}
+    \VerbatimStringTok{r"C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}app2.py"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  \begin{figure}[H]
+
+  {\centering \includegraphics{app2a.png}
+
+  }
+
+  \caption{App2 Type-Subtype}
+
+  \end{figure}%
+\item
+  \begin{figure}[H]
+
+  {\centering \includegraphics{app2b.png}
+
+  }
+
+  \caption{App2 Type-Subtype}
+
+  \end{figure}%
+\item
+  Unfortunately, although my app was working successfully before, after
+  returning to it the following day, I couldn't recreate the points on
+  the graph despite using the exact same code. This means I'm unable to
+  provide screenshots (i.e.~regardless of what time I choose, the map is
+  empty), though based on when the app was running, I was able to gather
+  than closures to to construction are much more common at night than
+  they are during the morning. This makes sense, as late into the night
+  is when they would be ideally be the least disruptive to commuters.
+\end{enumerate}
+
+\section*{App \#3: Top Location by Alert Type and Hour Dashboard (20
+points)}\label{app-3-top-location-by-alert-type-and-hour-dashboard-20-points}
+\addcontentsline{toc}{section}{App \#3: Top Location by Alert Type and
+Hour Dashboard (20 points)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Though collapsing the data was useful earlier and easier for shiny to
+  handle, it presents a problem if we're allowing users to select their
+  own range of hours. If we collapse the data to pre-arrange it into
+  certain time ranges, we remove user's ability to choose the windows of
+  time for themselves. By not collapsing, we allow the data to
+  dynamically adjust to whatever hours specified.
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}top\_alerts\_map\_byhour.csv\textquotesingle{}}
+\NormalTok{top\_alerts\_df }\OperatorTok{=}\NormalTok{ pd.read\_csv(data\_path)}
+
+\CommentTok{\# Remove timezone information from \textquotesingle{}hour\textquotesingle{} column}
+\NormalTok{top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ pd.to\_datetime(}
+\NormalTok{    top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{]).dt.tz\_localize(}\VariableTok{None}\NormalTok{)}
+
+\CommentTok{\# Specify the 3 specific hours you want to focus on (between 6AM{-}9AM)}
+\CommentTok{\# Modify this list to the specific hours you want}
+\NormalTok{specific\_hours }\OperatorTok{=}\NormalTok{ [}\StringTok{\textquotesingle{}06:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}07:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}08:00\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}09:00\textquotesingle{}}\NormalTok{]}
+
+\BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Selected specific hours: }\SpecialCharTok{\{}\NormalTok{specific\_hours}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\CommentTok{\# Load GeoJSON data for Chicago boundaries}
+\NormalTok{geojson\_path }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textbackslash{}chicago{-}boundaries.geojson\textquotesingle{}}
+\ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(geojson\_path) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{    chicago\_geojson }\OperatorTok{=}\NormalTok{ json.load(f)}
+\NormalTok{geo\_data }\OperatorTok{=}\NormalTok{ alt.Data(values}\OperatorTok{=}\NormalTok{chicago\_geojson[}\StringTok{"features"}\NormalTok{])}
+
+\CommentTok{\# Initialize an empty list to store charts}
+\NormalTok{jam\_hour\_charts }\OperatorTok{=}\NormalTok{ []}
+
+\ControlFlowTok{for}\NormalTok{ hour }\KeywordTok{in}\NormalTok{ specific\_hours:}
+    \CommentTok{\# Filter data for the specific hour}
+\NormalTok{    hourly\_data }\OperatorTok{=}\NormalTok{ top\_alerts\_df[top\_alerts\_df[}\StringTok{\textquotesingle{}hour\textquotesingle{}}\NormalTok{].dt.strftime(}
+        \StringTok{\textquotesingle{}\%H:\%M\textquotesingle{}}\NormalTok{) }\OperatorTok{==}\NormalTok{ hour]}
+
+    \CommentTok{\# Sort by alert\_count and select the top 10 rows}
+\NormalTok{    hourly\_data\_top\_10 }\OperatorTok{=}\NormalTok{ hourly\_data.sort\_values(}
+\NormalTok{        by}\OperatorTok{=}\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{, ascending}\OperatorTok{=}\VariableTok{False}\NormalTok{).head(}\DecValTok{10}\NormalTok{)}
+
+    \CommentTok{\# Debugging: Print filtered data}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"}\CharTok{\textbackslash{}n}\SpecialStringTok{Data for hour }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{:"}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(hourly\_data\_top\_10)}
+
+    \ControlFlowTok{if}\NormalTok{ hourly\_data\_top\_10.empty:}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"No data available for hour }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{. Skipping..."}\NormalTok{)}
+        \ControlFlowTok{continue}
+
+    \CommentTok{\# Create map layer (base map) using the Chicago GeoJSON}
+\NormalTok{    base\_map }\OperatorTok{=}\NormalTok{ alt.Chart(geo\_data).mark\_geoshape(}
+\NormalTok{        fill}\OperatorTok{=}\StringTok{\textquotesingle{}lightgray\textquotesingle{}}\NormalTok{,}
+\NormalTok{        stroke}\OperatorTok{=}\StringTok{\textquotesingle{}white\textquotesingle{}}
+\NormalTok{    ).properties(}
+\NormalTok{        width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{        height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{    )}
+
+    \CommentTok{\# Add points layer for top locations (alerts)}
+\NormalTok{    points\_layer }\OperatorTok{=}\NormalTok{ alt.Chart(hourly\_data\_top\_10).mark\_circle().encode(}
+\NormalTok{        longitude}\OperatorTok{=}\StringTok{\textquotesingle{}binned\_longitude:Q\textquotesingle{}}\NormalTok{,}
+\NormalTok{        latitude}\OperatorTok{=}\StringTok{\textquotesingle{}binned\_latitude:Q\textquotesingle{}}\NormalTok{,}
+\NormalTok{        size}\OperatorTok{=}\NormalTok{alt.Size(}\StringTok{\textquotesingle{}alert\_count:Q\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\NormalTok{alt.Scale(}\BuiltInTok{range}\OperatorTok{=}\NormalTok{[}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{])),}
+\NormalTok{        color}\OperatorTok{=}\NormalTok{alt.value(}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{),}
+\NormalTok{        tooltip}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}binned\_longitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}binned\_latitude\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}alert\_count\textquotesingle{}}\NormalTok{]}
+\NormalTok{    )}
+
+    \CommentTok{\# Combine base map and points layer for the final chart}
+\NormalTok{    jam\_hour\_chart }\OperatorTok{=}\NormalTok{ alt.layer(base\_map, points\_layer).project(}
+        \BuiltInTok{type}\OperatorTok{=}\StringTok{\textquotesingle{}mercator\textquotesingle{}}\NormalTok{,}
+\NormalTok{        scale}\OperatorTok{=}\DecValTok{50000}\NormalTok{,}
+\NormalTok{        center}\OperatorTok{=}\NormalTok{[}\OperatorTok{{-}}\FloatTok{87.65}\NormalTok{, }\FloatTok{41.88}\NormalTok{]  }\CommentTok{\# Approximate center of Chicago}
+\NormalTok{    ).properties(}
+\NormalTok{        title}\OperatorTok{=}\SpecialStringTok{f"Top 10 Locations for Alerts at }\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{,}
+\NormalTok{        width}\OperatorTok{=}\DecValTok{600}\NormalTok{,}
+\NormalTok{        height}\OperatorTok{=}\DecValTok{400}
+\NormalTok{    )}
+
+    \CommentTok{\# Append the chart to the list}
+\NormalTok{    jam\_hour\_charts.append((jam\_hour\_chart, hour))}
+
+\CommentTok{\# Save each chart as a PNG file using kaleido}
+\NormalTok{output\_folder }\OperatorTok{=} \VerbatimStringTok{r\textquotesingle{}C:\textbackslash{}Users\textbackslash{}clari\textbackslash{}OneDrive\textbackslash{}Documents\textbackslash{}Python II\textbackslash{}problem set 6\textquotesingle{}}
+\NormalTok{os.makedirs(output\_folder, exist\_ok}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ i, (chart, hour) }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(jam\_hour\_charts):}
+\NormalTok{    output\_path }\OperatorTok{=}\NormalTok{ os.path.join(}
+\NormalTok{        output\_folder, }\SpecialStringTok{f\textquotesingle{}top\_alerts\_map\_byhour\_sliderrange\_}\SpecialCharTok{\{}\NormalTok{hour}\SpecialCharTok{.}\NormalTok{replace(}\StringTok{":"}\NormalTok{, }\StringTok{"{-}"}\NormalTok{)}\SpecialCharTok{\}}\SpecialStringTok{.png\textquotesingle{}}\NormalTok{)}
+    \CommentTok{\# Using kaleido to save as PNG}
+\NormalTok{    chart.save(output\_path, renderer}\OperatorTok{=}\StringTok{\textquotesingle{}kaleido\textquotesingle{}}\NormalTok{, scale}\OperatorTok{=}\FloatTok{2.0}\NormalTok{)}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Chart saved to: }\SpecialCharTok{\{}\NormalTok{output\_path}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Selected specific hours: ['06:00', '07:00', '08:00', '09:00']
+
+Data for hour 06:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+54942 2024-08-27 06:00:00            41.80            -87.64           15
+28124 2024-05-06 06:00:00            41.96            -87.75           13
+28364 2024-05-07 06:00:00            41.96            -87.75           13
+30757 2024-05-17 06:00:00            41.88            -87.65           12
+37691 2024-06-15 06:00:00            41.96            -87.75           12
+30278 2024-05-15 06:00:00            41.96            -87.75           12
+38411 2024-06-18 06:00:00            41.96            -87.75           12
+39851 2024-06-24 06:00:00            41.96            -87.75           12
+30038 2024-05-14 06:00:00            41.96            -87.75           12
+27644 2024-05-04 06:00:00            41.96            -87.75           12
+
+Data for hour 07:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+53792 2024-08-22 07:00:00            41.88            -87.68           25
+48400 2024-07-30 07:00:00            41.87            -87.67           20
+48395 2024-07-30 07:00:00            41.80            -87.64           19
+25302 2024-04-24 07:00:00            41.86            -87.65           19
+29568 2024-05-12 07:00:00            41.88            -87.65           16
+36272 2024-06-09 07:00:00            41.96            -87.75           13
+34352 2024-06-01 07:00:00            41.96            -87.75           13
+34111 2024-05-31 07:00:00            41.96            -87.75           13
+35312 2024-06-05 07:00:00            41.96            -87.75           12
+36752 2024-06-11 07:00:00            41.96            -87.75           12
+
+Data for hour 08:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+45090 2024-07-16 08:00:00            41.87            -87.67           19
+32449 2024-05-24 08:00:00            41.96            -87.75           14
+36281 2024-06-09 08:00:00            41.96            -87.75           13
+38431 2024-06-18 08:00:00            41.96            -87.75           13
+31015 2024-05-18 08:00:00            41.96            -87.75           13
+28381 2024-05-07 08:00:00            41.96            -87.75           13
+30539 2024-05-16 08:00:00            41.96            -87.75           13
+33404 2024-05-28 08:00:00            41.96            -87.75           12
+29819 2024-05-13 08:00:00            41.96            -87.75           12
+32929 2024-05-26 08:00:00            41.96            -87.75           12
+
+Data for hour 09:00:
+                     hour  binned_latitude  binned_longitude  alert_count
+36769 2024-06-11 09:00:00            41.82            -87.64           17
+30785 2024-05-17 09:00:00            41.96            -87.75           14
+34852 2024-06-03 09:00:00            41.96            -87.75           13
+34132 2024-05-31 09:00:00            41.96            -87.75           13
+34612 2024-06-02 09:00:00            41.96            -87.75           13
+38200 2024-06-17 09:00:00            41.96            -87.75           13
+32223 2024-05-23 09:00:00            41.96            -87.75           13
+30069 2024-05-14 09:00:00            41.96            -87.75           13
+33179 2024-05-27 09:00:00            41.96            -87.75           13
+35572 2024-06-06 09:00:00            41.96            -87.75           13
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour_sliderrange_06-00.png
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour_sliderrange_07-00.png
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour_sliderrange_08-00.png
+Chart saved to: C:\Users\clari\OneDrive\Documents\Python II\problem set 6\top_alerts_map_byhour_sliderrange_09-00.png
+\end{verbatim}
+
+\includegraphics{top_alerts_map_byhour_sliderrange_06-00.png}
+\includegraphics{top_alerts_map_byhour_sliderrange_07-00.png}
+\includegraphics{top_alerts_map_byhour_sliderrange_08-00.png}
+\includegraphics{top_alerts_map_byhour_sliderrange_09-00.png} 2.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  See image \includegraphics{app3_2a.png}
+\item
+  See image \includegraphics{app3_2b.png}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  According to the link, when using a switch button, we can assign a
+  value of True, indicating the input.switch\_button is turned on
+  (switching to a range of hours, for example), or False, when the
+  switch is turned off (switching to just one specific hour).
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{app3_3a.png}
+
+}
+
+\caption{App3-Range}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  See images \includegraphics{app3_3b1.png}
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{app3_3b2.png}
+
+}
+
+\caption{App3-Switch}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  See images (use the variations)
+\end{enumerate}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{app3_3c1.png}
+
+}
+
+\caption{App3-Function}
+
+\end{figure}%%
+\begin{figure}[H]
+
+{\centering \includegraphics{app3_3c2.png}
+
+}
+
+\caption{App3-Function}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The plot seems to divide the data between morning and afternoon times
+  and displays them both simultaneously. To do this, I'd assume our
+  first step is to subset the data between the points that are in the
+  morning (let's say all A.M. times) and another subset for the
+  afternoon (we'll go with all P.M. times until midnight). We'd label
+  the a.m. subset with an extra column indicating `morning' and a
+  similar `afternoon' column. In the same way we had a button that
+  toggles between one specific hour and a range, we can imagine a
+  similar button which turns the display of morning points on or off,
+  and another for afternoon points. When only one is on, we can focus
+  solely on these points. If they're both on, they'll display much like
+  what we see in this example plot.
+\end{enumerate}
+
+
+
+
+\end{document}
