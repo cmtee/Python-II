@@ -1,0 +1,16 @@
+
+
+Partner1: Eddie Andujar, eandujar21
+Partner2: Clarice Tee, cmtee
+c263396 - cmtee, 3 minutes ago : Merge pull request #4 from cmtee/histogram
+8e3484e - cmtee, 3 minutes ago : Merge branch 'main' into histogram
+b66d7bd - eandujar21, 14 minutes ago : Merge pull request #3 from cmtee/describe
+cab6bd0 - eandujar21, 15 minutes ago : Modified existing function to get a list with the objects as material and an altair plot with a histogram of values
+04901db - cmtee, 33 minutes ago : Modified existing function to return a list with header and DataFrame preview
+0b7a821 - eandujar21, 69 minutes ago : Merge pull request #2 from cmtee/merge_conflict_clarice
+2ee63af - eandujar21, 70 minutes ago : Merge branch 'main' into merge_conflict_clarice
+ce18da9 - cmtee, 79 minutes ago : Merge pull request #1 from cmtee/merge_conflict_eddie_1
+69bdbcd - cmtee, 82 minutes ago : Update ps3_pair.qmd
+ed90d74 - eandujar21, 82 minutes ago : Update ps3_pair.qmd
+22e2236 - cmtee, 3 hours ago : Create ps3_pair.qmd
+6a44faa - cmtee, 3 hours ago : Initial commit

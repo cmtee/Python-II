@@ -1,0 +1,70 @@
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git checkout -b merge_conflict_Clarice^Xgit status
+fatal: 'status' is not a commit and a branch 'merge_conflict_Clarice?git' cannot be created from it
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git checkout -b merge_conflict_clarice
+Switched to a new branch 'merge_conflict_clarice'
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git add ps3_pair.qmd
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git -m "Updated author to Clarice in ps3_pair.qmd"
+unknown option: -m
+usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]
+           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]
+           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]
+           <command> [<args>]
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git commit -m "Updated author to Clarice in ps3_pair.qmd"
+On branch merge_conflict_clarice
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   ps3_pair.qmd
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git checkout -b describe
+Switched to a new branch 'describe'
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git add ps3_pair.qmd
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git commit -m "Modified existing function to return a list with header and DataFrame preview"
+[describe 04901db] Modified existing function to return a list with header and DataFrame preview
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git push origin describe
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 608 bytes | 608.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'describe' on GitHub by visiting:
+remote:      https://github.com/cmtee/ps3_paired/pull/new/describe
+remote:
+To https://github.com/cmtee/ps3_paired.git
+ * [new branch]      describe -> describe
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired> git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\Users\clari\OneDrive\Documents\Python II\problem-set-3-solo-cmtee\ps3_paired>git log --pretty=format:"%h - %an, %ar : %s" > commit_history.txt
